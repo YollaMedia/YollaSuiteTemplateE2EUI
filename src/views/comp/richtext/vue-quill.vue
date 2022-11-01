@@ -90,7 +90,7 @@
   function addImg() {
     const html =
       getHtmlVal() +
-      '<img style="width:100px" src="https://www.baidu.com/img/flexible/logo/pc/result.png"/>';
+      '<img style="width:100px" src="https://i.picsum.photos/id/984/202/66.jpg?hmac=2SA0qS0NjYHMlrRdQFVjNZ2L62Pl4WYEl2P11Kxwawo"/>';
     quillEditor.value.setHTML(html);
   }
 

@@ -121,7 +121,4 @@
             </g>
         </g>
     </g>
-    <div xmlns="" id="divScriptsUsed" style="display: none"/>
-    <script xmlns="" id="globalVarsDetection"
-            src="chrome-extension://cmkdbmfndkfgebldhnkbfhlneefdaaip/js/wrs_env.js"/>
 </svg>

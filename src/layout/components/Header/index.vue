@@ -281,7 +281,7 @@
           icon: 'GithubOutlined',
           tips: 'github',
           eventObject: {
-            click: () => window.open('https://github.com/jekip/naive-ui-admin'),
+            click: () => window.open('#'),
           },
         },
         {

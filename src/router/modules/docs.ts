@@ -6,7 +6,7 @@ import { renderIcon } from '@/utils/index';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/external',
-    name: 'https://jekip.github.io/docs',
+    name: 'https://localhost/docs',
     component: Layout,
     meta: {
       title: '项目文档',

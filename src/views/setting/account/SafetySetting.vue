@@ -40,7 +40,7 @@
           </template>
           <n-thing title="个性域名">
             <template #description
-              ><span class="text-gray-400">已绑定域名：https://www.naiveui.com</span></template
+              ><span class="text-gray-400">已绑定域名：https://www.example.com</span></template
             >
           </n-thing>
         </n-list-item>
