@@ -1,1 +1,13 @@
-Forked from [Naive Ui Admin](https://github.com/jekip/naive-ui-admin)
+# Setup
+
+## git
+
+Upstream: `git remote add upstream git@github.com:YollaMedia/naive-ui-admin.git`
+
+---
+
+Branches: 
+
+- Remote work branch: `dev`
+- Local production branch: `prod`
+- Local development branch: `dev`
