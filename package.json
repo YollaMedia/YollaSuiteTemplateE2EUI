@@ -1,11 +1,6 @@
 {
   "name": "naive-ui-admin",
   "version": "1.8.1",
-  "author": {
-    "name": "Ahjung",
-    "email": "735878602@qq.com",
-    "url": "https://github.com/jekip/naive-ui-admin"
-  },
   "private": true,
   "scripts": {
     "bootstrap": "yarn install",
@@ -115,15 +110,6 @@
     "admin",
     "typescript"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jekip/naive-ui-admin.git"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/jekip/naive-ui-admin/issues"
-  },
-  "homepage": "https://github.com/jekip/naive-ui-admin",
   "engines": {
     "node": "^12 || >=14"
   }

@@ -45,7 +45,7 @@
         </n-form-item>
 
         <n-form-item label="水印图片" path="watermarkClarity">
-          <n-upload action="http://www.mocky.io/v2/5e4bafc63100007100d8b70f">
+          <n-upload action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f">
             <n-button>上传文件</n-button>
           </n-upload>
         </n-form-item>

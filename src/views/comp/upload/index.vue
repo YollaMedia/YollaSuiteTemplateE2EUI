@@ -82,7 +82,7 @@
     name: '',
     mobile: '',
     //图片列表 通常查看和编辑使用 绝对路径 | 相对路径都可以
-    images: ['https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'],
+    images: ['https://i.picsum.photos/id/903/900/900.jpg?hmac=aOnl0lTyP0QAd8o4U4Mzs1kJxDqUITODJXS9FTxMJ6o'],
   });
 
   const uploadHeaders = reactive({

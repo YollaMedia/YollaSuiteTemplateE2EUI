@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'naive-admin',
         meta: {
           title: 'NaiveAdmin',
-          frameSrc: 'https://www.naiveadmin.com',
+          frameSrc: '#',
         },
         component: IFrame,
       },
@@ -31,7 +31,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'frame-docs',
         meta: {
           title: '项目文档(内嵌)',
-          frameSrc: 'https://jekip.github.io/docs',
+          frameSrc: '#',
         },
         component: IFrame,
       },
@@ -40,7 +40,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'frame-naive',
         meta: {
           title: 'NaiveUi(内嵌)',
-          frameSrc: 'https://www.naiveui.com',
+          frameSrc: '#',
         },
         component: IFrame,
       },
