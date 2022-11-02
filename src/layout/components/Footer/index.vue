@@ -1,11 +1,10 @@
 <template>
   <div class="page-footer">
     <div class="page-footer-link">
-      <a href="#" target="_blank"> 官网 </a>
-      <a href="#" target="_blank"> 社区 </a>
-      <a href="#" target="_blank"> 交流 </a>
+      <a href="http://www.yollamedia.com" target="_blank">YOLLA</a>
+      <span> © 2022</span>
     </div>
-    <div class="copyright"> naive-ui-admin 1.4 · Made by Ah jung </div>
+    <div class="copyright"> Yolla E2E Dashboard v1.0.0 </div>
   </div>
 </template>
 
@@ -23,28 +22,30 @@
 
 <style lang="less" scoped>
   .page-footer {
+    display: flex;
+    justify-content: space-between;
     //margin: 28px 0 24px 0;
-    padding: 0 16px;
+    // padding: 0 16px;
     text-align: center;
 
     a {
       font-size: 14px;
-      color: #808695;
+      color: #ff3c04;
       -webkit-transition: all 0.2s ease-in-out;
       transition: all 0.2s ease-in-out;
 
       &:hover {
-        color: #515a6e;
+        color: #b72900;
       }
     }
 
     &-link {
       display: flex;
       justify-content: center;
-      margin-bottom: 8px;
+      // margin-bottom: 8px;
 
       a:not(:last-child) {
-        margin-right: 40px;
+        margin-right: 12px;
       }
     }
 

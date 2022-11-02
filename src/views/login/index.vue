@@ -17,7 +17,7 @@
           :rules="rules"
         >
           <n-form-item path="username">
-            <n-input v-model:value="formInline.username" placeholder="请输入用户名">
+            <n-input v-model:value="formInline.username" placeholder="Please enter account">
               <template #prefix>
                 <n-icon size="18" color="#808695">
                   <PersonOutline />
@@ -30,7 +30,7 @@
               v-model:value="formInline.password"
               type="password"
               showPasswordOn="click"
-              placeholder="请输入密码"
+              placeholder="Please enter password"
             >
               <template #prefix>
                 <n-icon size="18" color="#808695">
@@ -42,41 +42,14 @@
           <n-form-item class="default-color">
             <div class="flex justify-between">
               <div class="flex-initial">
-                <n-checkbox v-model:checked="autoLogin">自动登录</n-checkbox>
-              </div>
-              <div class="flex-initial order-last">
-                <a href="javascript:">忘记密码</a>
+                <n-checkbox v-model:checked="autoLogin">Remember</n-checkbox>
               </div>
             </div>
           </n-form-item>
           <n-form-item>
             <n-button type="primary" @click="handleSubmit" size="large" :loading="loading" block>
-              登录
+              Login
             </n-button>
-          </n-form-item>
-          <n-form-item class="default-color">
-            <div class="flex view-account-other">
-              <div class="flex-initial">
-                <span>其它登录方式</span>
-              </div>
-              <div class="flex-initial mx-2">
-                <a href="javascript:">
-                  <n-icon size="24" color="#2d8cf0">
-                    <LogoGithub />
-                  </n-icon>
-                </a>
-              </div>
-              <div class="flex-initial mx-2">
-                <a href="javascript:">
-                  <n-icon size="24" color="#2d8cf0">
-                    <LogoFacebook />
-                  </n-icon>
-                </a>
-              </div>
-              <div class="flex-initial" style="margin-left: auto">
-                <a href="javascript:">注册账号</a>
-              </div>
-            </div>
           </n-form-item>
         </n-form>
       </div>
@@ -90,7 +63,7 @@
   import { useUserStore } from '@/store/modules/user';
   import { useMessage } from 'naive-ui';
   import { ResultEnum } from '@/enums/httpEnum';
-  import { PersonOutline, LockClosedOutline, LogoGithub, LogoFacebook } from '@vicons/ionicons5';
+  import { PersonOutline, LockClosedOutline } from '@vicons/ionicons5';
   import { PageEnum } from '@/enums/pageEnum';
   import { websiteConfig } from '@/config/website.config';
   interface FormState {
@@ -111,8 +84,8 @@
   });
 
   const rules = {
-    username: { required: true, message: '请输入用户名', trigger: 'blur' },
-    password: { required: true, message: '请输入密码', trigger: 'blur' },
+    username: { required: true, message: 'Please enter account', trigger: 'blur' },
+    password: { required: true, message: 'Please enter password', trigger: 'blur' },
   };
 
   const userStore = useUserStore();
@@ -125,7 +98,7 @@
     formRef.value.validate(async (errors) => {
       if (!errors) {
         const { username, password } = formInline;
-        message.loading('登录中...');
+        message.loading('Loading');
         loading.value = true;
 
         const params: FormState = {
@@ -138,18 +111,18 @@
           message.destroyAll();
           if (code == ResultEnum.SUCCESS) {
             const toPath = decodeURIComponent((route.query?.redirect || '/') as string);
-            message.success('登录成功，即将进入系统');
+            message.success('Login successfully.');
             if (route.name === LOGIN_NAME) {
               router.replace('/');
             } else router.replace(toPath);
           } else {
-            message.info(msg || '登录失败');
+            message.info(msg || 'Login fail, please try again.');
           }
         } finally {
           loading.value = false;
         }
       } else {
-        message.error('请填写完整信息，并且进行验证码校验');
+        message.error('Please enter account and password.');
       }
     });
   };

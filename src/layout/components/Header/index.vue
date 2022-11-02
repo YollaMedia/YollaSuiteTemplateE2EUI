@@ -30,7 +30,7 @@
           <MenuFoldOutlined />
         </n-icon>
       </div>
-      <!-- 刷新 -->
+      <!-- Refresh -->
       <div
         class="mr-1 layout-header-trigger layout-header-trigger-min"
         v-if="headerSetting.isReload"
@@ -40,7 +40,7 @@
           <ReloadOutlined />
         </n-icon>
       </div>
-      <!-- 面包屑 -->
+      <!-- Breadcrumb -->
       <n-breadcrumb v-if="crumbsSetting.show">
         <template v-for="routeItem in breadcrumbList" :key="routeItem.name">
           <n-breadcrumb-item v-if="routeItem.meta.title">
@@ -83,7 +83,7 @@
           <span>{{ item.tips }}</span>
         </n-tooltip>
       </div>
-      <!--切换全屏-->
+      <!--Full Screen-->
       <div class="layout-header-trigger layout-header-trigger-min">
         <n-tooltip placement="bottom">
           <template #trigger>
@@ -91,10 +91,10 @@
               <component :is="fullscreenIcon" @click="toggleFullScreen" />
             </n-icon>
           </template>
-          <span>全屏</span>
+          <span>Full Screen</span>
         </n-tooltip>
       </div>
-      <!-- 个人中心 -->
+      <!-- Personal Settings -->
       <div class="layout-header-trigger layout-header-trigger-min">
         <n-dropdown trigger="hover" @select="avatarSelect" :options="avatarOptions">
           <div class="avatar">
@@ -107,7 +107,7 @@
           </div>
         </n-dropdown>
       </div>
-      <!--设置-->
+      <!--Style setting-->
       <div class="layout-header-trigger layout-header-trigger-min" @click="openSetting">
         <n-tooltip placement="bottom-end">
           <template #trigger>
@@ -120,7 +120,7 @@
       </div>
     </div>
   </div>
-  <!--项目配置-->
+  <!--Style setting Component-->
   <ProjectSetting ref="drawerSetting" />
 </template>
 
@@ -229,13 +229,13 @@
       // 退出登录
       const doLogout = () => {
         dialog.info({
-          title: '提示',
-          content: '您确定要退出登录吗',
-          positiveText: '确定',
-          negativeText: '取消',
+          title: 'Hint',
+          content: 'Do you want to log out?',
+          positiveText: 'Yes',
+          negativeText: 'Cancel',
           onPositiveClick: () => {
             userStore.logout().then(() => {
-              message.success('成功退出登录');
+              message.success('Log out successfully');
               // 移除标签页
               localStorage.removeItem(TABS_ROUTES);
               router
@@ -273,17 +273,17 @@
 
       // 图标列表
       const iconList = [
-        {
-          icon: 'SearchOutlined',
-          tips: '搜索',
-        },
-        {
-          icon: 'GithubOutlined',
-          tips: 'github',
-          eventObject: {
-            click: () => window.open('#'),
-          },
-        },
+        // {
+        //   icon: 'SearchOutlined',
+        //   tips: '搜索',
+        // },
+        // {
+        //   icon: 'GithubOutlined',
+        //   tips: 'github',
+        //   eventObject: {
+        //     click: () => window.open('#'),
+        //   },
+        // },
         {
           icon: 'LockOutlined',
           tips: '锁屏',
@@ -294,11 +294,11 @@
       ];
       const avatarOptions = [
         {
-          label: '个人设置',
+          label: 'Personal Settings',
           key: 1,
         },
         {
-          label: '退出登录',
+          label: 'Log out',
           key: 2,
         },
       ];

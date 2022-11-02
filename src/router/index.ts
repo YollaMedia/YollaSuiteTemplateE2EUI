@@ -53,7 +53,7 @@ const router = createRouter({
 
 export function setupRouter(app: App) {
   app.use(router);
-  // 创建路由守卫
+  // Create Router Guard
   createRouterGuards(router);
 }
 
