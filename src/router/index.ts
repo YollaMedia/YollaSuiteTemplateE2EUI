@@ -4,7 +4,7 @@ import { RedirectRoute } from '@/router/base';
 import { PageEnum } from '@/enums/pageEnum';
 import { createRouterGuards } from './router-guards';
 
-const modules = import.meta.globEager('./modules/**/*.ts');
+const modules = import.meta.globEager('./modules_new/**/*.ts');
 
 const routeModuleList: RouteRecordRaw[] = [];
 
@@ -34,7 +34,7 @@ export const LoginRoute: RouteRecordRaw = {
   name: 'Login',
   component: () => import('@/views/login/index.vue'),
   meta: {
-    title: '登录',
+    title: 'Login',
   },
 };
 
