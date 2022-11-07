@@ -13,10 +13,11 @@
           :schemas="schemas"
           @submit="handleSubmit"
           @reset="handleReset"
-          labelWidth="100%"
+          labelWidth="100px"
         >
           <template #statusSlot="{ model, field }">
-            <n-input v-model:value="model[field]" placeholder="Description" type="textarea" />
+            <!-- <n-input v-model:value="model[field]" placeholder="Description" type="textarea" /> -->
+            <Codemirror :style="{ height: '200px', width: '100%' }" v-model="model[field]" />
           </template>
         </BasicForm>
       </div>
@@ -25,6 +26,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { Codemirror } from 'vue-codemirror';
   import { BasicForm, FormSchema } from '@/components/Form/index';
   import { useMessage, FormItemRule } from 'naive-ui';
 
@@ -125,7 +127,7 @@
 
 <style lang="less" scoped>
   .BasicForm {
-    width: 550px;
+    width: 50%;
     margin: 0 auto;
     overflow: hidden;
     padding-top: 20px;
