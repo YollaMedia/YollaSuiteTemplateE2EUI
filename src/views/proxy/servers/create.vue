@@ -1,5 +1,5 @@
 <template>
-  <div sjtyle="width: 100%">
+  <div style="width: 100%">
     <div class="n-layout-page-header">
       <n-card :bordered="false" title="Create Server" />
     </div>
@@ -17,7 +17,10 @@
         >
           <template #statusSlot="{ model, field }">
             <!-- <n-input v-model:value="model[field]" placeholder="Description" type="textarea" /> -->
-            <Codemirror :style="{ height: '200px', width: '100%' }" v-model="model[field]" />
+            <Codemirror
+              :style="{ height: '200px', width: '100%', outline: 'none !important' }"
+              v-model="model[field]"
+            />
           </template>
         </BasicForm>
       </div>
@@ -131,5 +134,8 @@
     margin: 0 auto;
     overflow: hidden;
     padding-top: 20px;
+  }
+  .ͼ1.cm-editor.cm-focused {
+    outline: none !important;
   }
 </style>

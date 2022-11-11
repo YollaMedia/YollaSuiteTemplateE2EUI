@@ -38,10 +38,10 @@ export const LoginRoute: RouteRecordRaw = {
   },
 };
 
-//需要验证权限
+//Need validate
 export const asyncRoutes = [...routeModuleList];
 
-//普通路由 无需验证权限
+//Normal route do not need validate
 export const constantRouter: any[] = [LoginRoute, RootRoute, RedirectRoute];
 
 const router = createRouter({

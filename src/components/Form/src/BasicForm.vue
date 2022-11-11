@@ -82,7 +82,7 @@
       >
         <n-space
           align="center"
-          :justify="isInline ? 'end' : 'start'"
+          :justify="'end'"
           :style="{ 'margin-left': `${isInline ? 12 : getProps.labelWidth}px` }"
         >
           <n-button

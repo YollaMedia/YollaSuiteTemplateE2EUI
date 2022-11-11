@@ -655,7 +655,7 @@
   }
 
   .tabs-view-default-background {
-    background: #f5f7f9;
+    background: #ffffff;
   }
 
   .tabs-view-dark-background {

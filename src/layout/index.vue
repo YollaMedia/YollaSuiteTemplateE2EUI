@@ -208,7 +208,7 @@
     flex: auto;
 
     &-default-background {
-      background: #f5f7f9;
+      background: #ffffff;
     }
 
     .layout-sider {

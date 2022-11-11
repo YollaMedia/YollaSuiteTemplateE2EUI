@@ -50,6 +50,10 @@ const adminInfo = {
       label: 'Map to file',
       value: 'proxy_map',
     },
+    {
+      label: 'Map to Remote',
+      value: 'proxy_map_remote',
+    },
   ],
 };
 

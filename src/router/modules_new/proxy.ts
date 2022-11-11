@@ -2,7 +2,7 @@ import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
 import { CloudServerOutlined } from '@vicons/antd';
 import { renderIcon } from '@/utils/index';
-const routeName = 'Proxy';
+const routeName = 'proxy';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -19,6 +19,7 @@ const routes: Array<RouteRecordRaw> = [
         'proxy_rewrite_rules',
         'proxy_redirect_rules',
         'proxy_map',
+        'proxy_map_remote',
       ],
       sort: 0,
     },
@@ -31,7 +32,7 @@ const routes: Array<RouteRecordRaw> = [
           permissions: ['proxy_servers'],
           affix: true,
         },
-        component: () => import('@/views/proxy/servers/servers.vue'),
+        component: () => import('@/views/proxy/servers/list.vue'),
       },
       {
         path: 'create',
@@ -52,7 +53,7 @@ const routes: Array<RouteRecordRaw> = [
           permissions: ['proxy_rewrite_rules'],
           affix: true,
         },
-        component: () => import('@/views/proxy/servers/servers.vue'),
+        component: () => import('@/views/proxy/servers/list.vue'),
       },
       {
         path: 'redirect',
@@ -62,7 +63,7 @@ const routes: Array<RouteRecordRaw> = [
           permissions: ['proxy_redirect_rules'],
           affix: true,
         },
-        component: () => import('@/views/proxy/servers/servers.vue'),
+        component: () => import('@/views/proxy/servers/list.vue'),
       },
       {
         path: 'map',
@@ -72,7 +73,17 @@ const routes: Array<RouteRecordRaw> = [
           permissions: ['proxy_map'],
           affix: true,
         },
-        component: () => import('@/views/proxy/servers/servers.vue'),
+        component: () => import('@/views/proxy/servers/list.vue'),
+      },
+      {
+        path: 'map_remote',
+        name: `${routeName}_map_remote`,
+        meta: {
+          title: 'Proxy Map Remote',
+          permissions: ['proxy_map_remote'],
+          // affix: true,
+        },
+        component: () => import('@/views/proxy/map-remote/index.vue'),
       },
     ],
   },
