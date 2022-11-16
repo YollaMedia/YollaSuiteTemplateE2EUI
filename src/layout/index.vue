@@ -59,9 +59,9 @@
           </div>
         </div>
         <!--1.15 had been deprecated added by ourself-->
-        <NLayoutFooter v-if="getShowFooter" position="absolute" bordered style="padding: 12px">
+        <!-- <NLayoutFooter v-if="getShowFooter" position="absolute" bordered style="padding: 12px">
           <PageFooter />
-        </NLayoutFooter>
+        </NLayoutFooter> -->
       </n-layout-content>
       <n-back-top :right="100" />
     </n-layout>

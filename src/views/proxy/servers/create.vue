@@ -6,13 +6,12 @@
     <n-card :bordered="false" class="mt-4 proCard">
       <div class="BasicForm">
         <BasicForm
-          submitButtonText="Create"
-          resetButtonText="Reset"
+          submitButtonText="Save"
           layout="horizontal"
           :gridProps="{ cols: 1 }"
           :schemas="schemas"
           @submit="handleSubmit"
-          @reset="handleReset"
+          :showResetButton="false"
           labelWidth="100px"
         >
           <template #statusSlot="{ model, field }">
