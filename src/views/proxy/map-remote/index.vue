@@ -21,13 +21,7 @@
                 </router-link>
                 <n-space>
                   <n-switch size="small" />
-                  <n-button
-                    type="primary"
-                    circle
-                    size="tiny"
-                    @click.prevent="clickHandler(i)"
-                    class="button-style"
-                  >
+                  <n-button type="primary" circle size="tiny" @click.prevent="clickHandler(i)">
                     <CloseOutlined style="width: 14px" />
                   </n-button>
                 </n-space>
@@ -115,9 +109,5 @@
   .list-item {
     display: flex;
     align-items: center;
-  }
-  .button-style:hover {
-    background-color: #ffffff;
-    color: #d03050;
   }
 </style>

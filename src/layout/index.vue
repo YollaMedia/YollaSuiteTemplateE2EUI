@@ -46,7 +46,7 @@
             'fluid-header': fixedHeader === 'static',
           }"
         >
-          <TabsView v-if="isMultiTabs" v-model:collapsed="collapsed" />
+          <!-- <TabsView v-if="isMultiTabs" v-model:collapsed="collapsed" /> -->
           <div
             class="main-view"
             :class="{
@@ -71,11 +71,11 @@
 <script lang="ts" setup>
   import { ref, unref, computed, onMounted } from 'vue';
   import { Logo } from './components/Logo';
-  import { TabsView } from './components/TagsView';
+  // import { TabsView } from './components/TagsView';
   import { MainView } from './components/Main';
   import { AsideMenu } from './components/Menu';
   import { PageHeader } from './components/Header';
-  import { PageFooter } from './components/Footer';
+  // import { PageFooter } from './components/Footer';
   import { useProjectSetting } from '@/hooks/setting/useProjectSetting';
   import { useDesignSetting } from '@/hooks/setting/useDesignSetting';
   import { useRoute } from 'vue-router';
@@ -83,7 +83,7 @@
 
   const { getDarkTheme } = useDesignSetting();
   const {
-    getShowFooter,
+    // getShowFooter,
     getNavMode,
     getNavTheme,
     getHeaderSetting,
@@ -207,9 +207,9 @@
     flex-direction: row;
     flex: auto;
 
-    &-default-background {
-      background: #ffffff;
-    }
+    // &-default-background {
+    //   background: #ffffff;
+    // }
 
     .layout-sider {
       min-height: 100vh;
@@ -264,9 +264,9 @@
     padding-top: 0;
   }
 
-  .main-view-fix {
-    padding-top: 44px;
-  }
+  // .main-view-fix {
+  //   padding-top: 44px;
+  // }
 
   .noMultiTabs {
     padding-top: 0;

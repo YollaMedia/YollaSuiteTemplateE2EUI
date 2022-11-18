@@ -1,5 +1,10 @@
 <template>
   <div>
+    {{match}}
+    <p></p>
+    <div>
+      {{dynamicForm}}
+    </div>
     <div class="n-layout-page-header">
       <n-card :bordered="false" title="Proxy Rewrite Rule List" />
     </div>
@@ -71,13 +76,7 @@
             <n-space v-for="(item, index) in dynamicForm.rewriteSetting" :key="index" vertical>
               <n-space justify="space-between">
                 <n-p class="mt-0 mb-4" style="font-weight: bold"> Rule #{{ index + 1 }} </n-p>
-                <n-button
-                  type="primary"
-                  circle
-                  size="tiny"
-                  @click="removeItem(index)"
-                  class="button-style"
-                >
+                <n-button type="primary" circle size="tiny" @click="removeItem(index)">
                   <CloseOutlined style="width: 14px" />
                 </n-button>
               </n-space>
@@ -252,9 +251,5 @@
   .list-item {
     display: flex;
     align-items: center;
-  }
-  .button-style:hover {
-    background-color: #ffffff;
-    color: #d03050;
   }
 </style>
