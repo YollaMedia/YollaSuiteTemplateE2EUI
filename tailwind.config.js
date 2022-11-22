@@ -1,21 +1,20 @@
+const formKitTailwind = require('@formkit/themes/tailwindcss');
 module.exports = {
-  mode: 'jit',
+  // mode: 'jit',
   // darkMode: 'class',
-  plugins: [createEnterPlugin()],
-  purge: {
-    enable: process.env.NODE_ENV === 'production',
-    content: ['./index.html', './src/**/*.{vue,ts,tsx}'],
-  },
+  plugins: [createEnterPlugin(), formKitTailwind],
+  // content: {
+  //   enable: process.env.NODE_ENV === 'production',
+  //   content: ['./index.html', './src/**/*.{vue,ts,tsx}', './formkit.config.js'],
+  // },
+  content: ['./index.html', './src/**/*.{vue,ts,tsx}', './formkit.config.js'],
   theme: {
     extend: {
       zIndex: {
         '-1': '-1',
       },
       colors: {
-        primary: {
-          DEFAULT: '#ff3c04',
-          // dark: primaryColorDark,
-        },
+        'primary': '#ff3c04',
       },
       screens: {
         sm: '576px',

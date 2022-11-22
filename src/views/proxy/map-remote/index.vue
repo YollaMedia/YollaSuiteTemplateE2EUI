@@ -21,88 +21,74 @@
                 </router-link>
                 <n-space>
                   <n-switch size="small" />
-                  <n-button type="primary" circle size="tiny" @click.prevent="clickHandler(i)">
+                  <n-button
+                    type="primary"
+                    circle
+                    size="tiny"
+                    class="text-primary"
+                    @click.prevent="clickHandler(i)"
+                  >
                     <CloseOutlined style="width: 14px" />
                   </n-button>
                 </n-space>
               </n-space>
             </n-list-item>
           </n-list>
-          <n-button type="primary" style="width: 100%"> + New Map Rule </n-button>
+          <n-button type="primary" style="width: 100%" class="text-primary">
+            + New Map Rule
+          </n-button>
         </n-gi>
         <n-gi span="2">
           <n-h1 type="dark" class="mb-0" style="margin-bottom: -10px"> Redirect Rule</n-h1>
           <n-p depth="3" class="mt-0 mb-4"> ID: ###, Created: ####-##-##, Updated: ####-##-##</n-p>
-          <div class="BasicForm">
-            <BasicForm
-              submitButtonText="Save"
-              layout="horizontal"
-              :gridProps="{ cols: 1 }"
-              :schemas="schemas"
-              @submit="handleSubmit"
-              labelWidth="100px"
-              :showResetButton="false"
-            >
-              <template #statusSlot="{ model, field }">
-                <!-- <n-input v-model:value="model[field]" placeholder="Description" type="textarea" /> -->
-                <Codemirror
-                  :style="{ height: '200px', width: '100%', outline: 'none !important' }"
-                  v-model="model[field]"
-                />
-              </template>
-            </BasicForm>
-          </div>
+          <!-- Form  -->
+          <FormKit type="form" submit-label="Save" @submit="submitHandler" message="">
+            <FormKitSchema :schema="schemas" :library="library" />
+          </FormKit>
         </n-gi>
       </n-grid>
     </n-card>
   </div>
 </template>
 <script lang="ts" setup>
+  // import { ref, reactive, markRaw } from 'vue';
   import { ref } from 'vue';
   import { useRoute } from 'vue-router';
-  import { Codemirror } from 'vue-codemirror';
-  import { BasicForm, FormSchema } from '@/components/Form/index';
+  import { FormKitSchema, createInput } from '@formkit/vue';
+  import { YollaCodemirror } from '../../../components/YollaFormKit';
   import { CloseOutlined } from '@vicons/antd';
-  import { useMessage, FormItemRule } from 'naive-ui';
+  import { useMessage } from 'naive-ui';
   let route = useRoute();
   //Remove map remote handler
   function clickHandler(id) {
     console.log(id);
   }
+  // Filter ref
   let filter = ref('');
-  const schemas: FormSchema[] = [
+  // Let codemirror can be used in formkit.
+  const codemirror = createInput(YollaCodemirror);
+  const schemas = [
     {
-      field: 'name',
-      component: 'NInput',
+      $formkit: 'text',
+      name: 'name',
       label: 'Name',
-      isFull: true,
-      // labelMessage: 'Enter name',
-      componentProps: {
-        placeholder: 'Please Enter Name',
-        onInput: (e: any) => {
-          console.log(e);
-        },
-      },
-      rules: [{ required: true, message: 'Please Enter Name', trigger: ['blur'] }],
+      placeholder: 'Enter a name',
+      validation: 'required',
     },
     {
-      field: 'description',
+      $cmp: codemirror,
+      name: 'description',
+      $formkit: codemirror,
       label: 'Description',
-      // Use slot to render unsurpported component
-      slot: 'statusSlot',
-      rules: [{ required: true, message: 'Please Enter Description', trigger: ['blur'] }],
+      validation: 'required',
     },
   ];
   const message = useMessage();
-
-  function handleSubmit(values: Recordable) {
+  // Submit event handler
+  function submitHandler(values) {
     console.log(values);
     message.success(JSON.stringify(values));
   }
-
-  // function handleReset(values: Recordable) {
-  //   console.log(values);
-  // }
 </script>
 
 <style scoped>

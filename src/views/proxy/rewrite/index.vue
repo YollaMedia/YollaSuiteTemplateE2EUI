@@ -1,9 +1,9 @@
 <template>
   <div>
-    {{match}}
+    {{ match }}
     <p></p>
     <div>
-      {{dynamicForm}}
+      {{ dynamicForm }}
     </div>
     <div class="n-layout-page-header">
       <n-card :bordered="false" title="Proxy Rewrite Rule List" />
@@ -35,8 +35,8 @@
                     type="primary"
                     circle
                     size="tiny"
+                    class="text-primary"
                     @click.prevent="clickHandler(i)"
-                    class="button-style"
                   >
                     <CloseOutlined style="width: 14px" />
                   </n-button>
@@ -44,7 +44,9 @@
               </n-space>
             </n-list-item>
           </n-list>
-          <n-button type="primary" style="width: 100%"> + New Rewrite Rule </n-button>
+          <n-button type="primary" class="text-primary" style="width: 100%">
+            + New Rewrite Rule
+          </n-button>
         </n-gi>
         <n-gi span="2" class="mb-6">
           <n-h1 type="dark" class="mb-0" style="margin-bottom: -10px"> Rewrite Rule</n-h1>
@@ -76,7 +78,13 @@
             <n-space v-for="(item, index) in dynamicForm.rewriteSetting" :key="index" vertical>
               <n-space justify="space-between">
                 <n-p class="mt-0 mb-4" style="font-weight: bold"> Rule #{{ index + 1 }} </n-p>
-                <n-button type="primary" circle size="tiny" @click="removeItem(index)">
+                <n-button
+                  type="primary"
+                  class="text-primary"
+                  circle
+                  size="tiny"
+                  @click="removeItem(index)"
+                >
                   <CloseOutlined style="width: 14px" />
                 </n-button>
               </n-space>
@@ -176,14 +184,25 @@
             </n-space>
           </n-form>
           <n-space justify="end">
-            <n-button strong secondary type="tertiary" style="margin-left: auto" @click="addItem">
+            <n-button
+              strong
+              class="text-primary"
+              type="primary"
+              style="margin-left: auto"
+              @click="addItem"
+            >
               Insert a new rule
             </n-button>
           </n-space>
         </n-gi>
         <n-gi span="4">
           <n-space justify="end">
-            <n-button style="margin-left: 12px" @click="handleSubmit" type="success">
+            <n-button
+              class="text-primary"
+              type="primary"
+              style="margin-left: 12px"
+              @click="handleSubmit"
+            >
               Save
             </n-button>
           </n-space>

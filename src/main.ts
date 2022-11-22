@@ -4,10 +4,19 @@ import { setupNaive, setupDirectives } from '@/plugins';
 import App from './App.vue';
 import router, { setupRouter } from './router';
 import { setupStore } from '@/store';
+import VueCodemirror from 'vue-codemirror';
+// code mirror style config
+import codeMirrorConfig from './config/codemirror.config';
+// The defaultConfig includes all of FormKit's inputs, validation rules, and the English language.
+import { plugin, defaultConfig } from '@formkit/vue';
+// Default formkit config.
+import config from '../formkit.config';
 
+// Star Vue instance function
 async function bootstrap() {
-  const app = createApp(App);
-
+  const app = createApp(App).use(plugin, defaultConfig(config));
+  // Global VueCodemirro settings.
+  app.use(VueCodemirror, codeMirrorConfig);
   // 注册全局常用的 naive-ui 组件
   setupNaive(app);
 
