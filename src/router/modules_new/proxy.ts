@@ -47,6 +47,17 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/proxy/servers/create.vue'),
       },
       {
+        path: 'create/:id',
+        name: `${routeName}_edit_server`,
+        meta: {
+          title: 'Proy Edit Servers',
+          // permissions: [],
+          hidden: true,
+          affix: true,
+        },
+        component: () => import('@/views/proxy/servers/create.vue'),
+      },
+      {
         path: 'rewrite/new',
         name: `${routeName}_rewrite_rules`,
         meta: {

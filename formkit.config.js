@@ -1,5 +1,5 @@
 import { generateClasses } from '@formkit/themes';
-
+// Reference: https://formkit.com/essentials/styling
 export default {
   config: {
     classes: generateClasses({
@@ -10,6 +10,13 @@ export default {
         message: 'text-red-500 mb-1 text-xs font-bold',
       },
       text: {
+        outer: 'mb-5',
+        inner:
+          'w-full border border-gray-400 rounded mb-1 overflow-hidden focus-within:border-primary hover:border-primary',
+        input:
+          'w-full h-10 px-3 border-none text-base text-gray-700 placeholder-gray-400 focus-visible:outline-none',
+      },
+      number: {
         outer: 'mb-5',
         inner:
           'w-full border border-gray-400 rounded mb-1 overflow-hidden focus-within:border-primary hover:border-primary',

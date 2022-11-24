@@ -21,7 +21,7 @@
 <script lang="ts" setup>
   import { reactive, ref, h } from 'vue';
   import { BasicTable, TableAction } from '@/components/Table';
-  import { getTableList } from '@/api/table/list';
+  import { getServers, deleteServer } from '@/api/proxy/server';
   import { columns } from './basicColumns';
   import { useDialog, useMessage } from 'naive-ui';
   import { DeleteOutlined, EditOutlined } from '@vicons/antd';
@@ -81,21 +81,26 @@
   }
 
   const loadDataTable = async (res) => {
-    // return [];
-    return await getTableList({ ...params, ...res });
+    let data = await getServers({ ...params, ...res });
+    let responseData = {
+      page: data.current_page,
+      pageCount: data.total,
+      pageSize: data.per_page,
+      list: data.data,
+    };
+    return responseData;
   };
 
   function onCheckedRow(rowKeys) {
     console.log(rowKeys);
   }
-
+  // Reload Table
   function reloadTable() {
     actionRef.value.reload();
   }
 
   function handleDelete(record) {
-    console.log(record);
-    dialog.info({
+    dialog.error({
       title: 'Alert',
       content: `Do you want to delete ${record.name}`,
       positiveText: 'Confirm',
@@ -105,12 +110,15 @@
       },
       onNegativeClick: () => {},
     });
+    deleteServer(record.id).then(() => {
+      actionRef.value.reload();
+    });
   }
-
+  // route to /proxy/create/${id}
   function handleEdit(record) {
-    console.log(record);
-    message.success('You click edit');
+    router.push(`/proxy/create/${record.id}`);
   }
+  // route to /proxy/create
   function addServer() {
     router.push('/proxy/create');
   }

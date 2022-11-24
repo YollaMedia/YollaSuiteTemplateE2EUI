@@ -4,137 +4,131 @@
       <n-card :bordered="false" title="Create Server" />
     </div>
     <n-card :bordered="false" class="mt-4 proCard">
-      <div class="BasicForm">
-        <BasicForm
-          submitButtonText="Save"
-          layout="horizontal"
-          :gridProps="{ cols: 1 }"
-          :schemas="schemas"
-          @submit="handleSubmit"
-          :showResetButton="false"
-          labelWidth="100px"
-        >
-          <template #statusSlot="{ model, field }">
-            <!-- <n-input v-model:value="model[field]" placeholder="Description" type="textarea" /> -->
-            <Codemirror
-              :style="{ height: '200px', width: '100%', outline: 'none !important' }"
-              v-model="model[field]"
-            />
-          </template>
-        </BasicForm>
+      <div class="BasicForm w-1/2">
+        <FormKit type="form" submit-label="Save" @submit="submitHandler">
+          <FormKitSchema :schema="schemas" />
+        </FormKit>
       </div>
     </n-card>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { Codemirror } from 'vue-codemirror';
-  import { BasicForm, FormSchema } from '@/components/Form/index';
-  import { useMessage, FormItemRule } from 'naive-ui';
-
-  const schemas: FormSchema[] = [
+  import { ref } from 'vue';
+  import type { Ref } from 'vue';
+  import { useMessage } from 'naive-ui';
+  import { FormKitSchema, createInput } from '@formkit/vue';
+  import { getNode } from '@formkit/core';
+  import { YollaCodemirror } from '../../../components/YollaFormKit';
+  import { createServer, getServer, updateServer } from '@/api/proxy/server';
+  import { useRouter, useRoute } from 'vue-router';
+  import { ICreateServerPayload } from '/#/proxyServers';
+  // Naive UI message Instance
+  const message = useMessage();
+  // Vue Router, Route Instance
+  const router = useRouter();
+  const route = useRoute();
+  // Get route parameter
+  const id: string | string[] = route.params.id;
+  // If id has value, modify set to true
+  let modify: Ref<boolean> = ref(id ? true : false);
+  // Form Kit schemas setting
+  const codemirror = createInput(YollaCodemirror);
+  const schemas = [
     {
-      field: 'name',
-      component: 'NInput',
+      $formkit: 'text',
+      id: 'name',
+      name: 'name',
       label: 'Name',
-      isFull: true,
-      // labelMessage: 'Enter name',
-      componentProps: {
-        placeholder: 'Please Enter Name',
-        onInput: (e: any) => {
-          console.log(e);
-        },
-      },
-      rules: [{ required: true, message: 'Please Enter Name', trigger: ['blur'] }],
+      placeholder: 'Enter a name',
+      validation: 'required',
     },
     {
-      field: 'ip',
-      component: 'NInput',
+      $formkit: 'text',
+      id: 'ip',
+      name: 'ip',
       label: 'IP Address',
-      componentProps: {
-        placeholder: 'Hostname with protocol',
-        showButton: false,
-        onInput: (e: any) => {
-          console.log(e);
-        },
-      },
-      rules: [{ required: true, message: 'Please Enter IP Address', trigger: ['blur'] }],
+      placeholder: 'Hostname with protocol',
+      validation: 'required',
     },
     {
-      field: 'proxy',
-      component: 'NInput',
+      $formkit: 'number',
       label: 'Proxy Port',
-      defaultValue: 10080,
-      componentProps: {
-        placeholder: '0-65535',
-        showButton: false,
-        onInput: (e: any) => {
-          console.log(e);
-        },
-      },
-      rules: [
-        {
-          required: true,
-          message: 'Please Enter Proxy Port',
-          trigger: ['blur'],
-          validator: (rule: FormItemRule, value) => {
-            return value > 0 && value < 65536;
-          },
-        },
-      ],
+      id: 'proxy_port',
+      name: 'proxy_port',
+      value: 10080,
+      validation: 'required',
     },
     {
-      field: 'api',
-      component: 'NInputNumber',
+      $formkit: 'number',
+      help: 'What temperature should the house be?',
       label: 'API Port',
-      defaultValue: 10088,
-      componentProps: {
-        placeholder: '0-65535',
-        showButton: false,
-        onInput: (e: any) => {
-          console.log(e);
-        },
-      },
-      rules: [
-        {
-          required: true,
-          message: 'Please Enter API Port',
-          trigger: ['blur'],
-          validator: (rule: FormItemRule, value) => {
-            return value > 0 && value < 65536;
-          },
-        },
-      ],
+      id: 'api_port',
+      name: 'api_port',
+      value: 10088,
+      validation: 'required',
     },
     {
-      field: 'description',
+      $cmp: codemirror,
+      props: {
+        context: '$node.context',
+      },
+      id: 'description',
+      name: 'description',
+      $formkit: codemirror,
       label: 'Description',
-      // Use slot to render unsurpported component
-      slot: 'statusSlot',
-      rules: [{ required: true, message: 'Please Enter Description', trigger: ['blur'] }],
+      validation: 'required',
     },
   ];
-
-  const message = useMessage();
-
-  function handleSubmit(values: Recordable) {
-    console.log(values);
-    message.success(JSON.stringify(values));
+  // Use if to get old value
+  if (id) {
+    getServer(route.params.id).then((res) => {
+      for (const key in res) {
+        schemas.forEach((i) => {
+          if (i.name === key) {
+            const node = getNode(key);
+            node?.input(res[key]);
+          }
+        });
+      }
+    });
   }
-
-  function handleReset(values: Recordable) {
-    console.log(values);
+  // Create payload
+  function createPayload(values): ICreateServerPayload {
+    let { name, ip, proxy_port, api_port, description } = values;
+    let payload: ICreateServerPayload = {
+      name,
+      ip,
+      proxy_port,
+      api_port,
+      description,
+    };
+    return payload;
+  }
+  // Create a new one
+  function createServerHandler(values) {
+    let payload = createPayload(values);
+    createServer(payload).then(() => {
+      router.push('/proxy/servers');
+    });
+  }
+  // Modify old setting
+  function updateServerHandler(values) {
+    let payload = createPayload(values);
+    updateServer(payload, id).then(() => {
+      router.push('/proxy/servers');
+    });
+  }
+  function submitHandler(values) {
+    modify.value ? updateServerHandler(values) : createServerHandler(values);
   }
 </script>
 
 <style lang="less" scoped>
   .BasicForm {
-    width: 50%;
+    // width: 50%;
     margin: 0 auto;
     overflow: hidden;
     padding-top: 20px;
-  }
-  .ͼ1.cm-editor.cm-focused {
-    outline: none !important;
   }
 </style>

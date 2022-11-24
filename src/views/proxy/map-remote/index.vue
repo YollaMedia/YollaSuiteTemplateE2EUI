@@ -42,8 +42,8 @@
           <n-h1 type="dark" class="mb-0" style="margin-bottom: -10px"> Redirect Rule</n-h1>
           <n-p depth="3" class="mt-0 mb-4"> ID: ###, Created: ####-##-##, Updated: ####-##-##</n-p>
           <!-- Form  -->
-          <FormKit type="form" submit-label="Save" @submit="submitHandler" message="">
-            <FormKitSchema :schema="schemas" :library="library" />
+          <FormKit type="form" submit-label="Save" @submit="submitHandler">
+            <FormKitSchema :schema="schemas" />
           </FormKit>
         </n-gi>
       </n-grid>

@@ -6,7 +6,7 @@ export const columns = [
   },
   {
     title: 'IP Address',
-    key: 'ip_address',
+    key: 'ip',
   },
   {
     title: 'Proxy Port',
