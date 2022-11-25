@@ -1,10 +1,10 @@
 <template>
-  <div style="width: 100%">
+  <div>
     <div class="n-layout-page-header">
       <n-card :bordered="false" title="Create Server" />
     </div>
     <n-card :bordered="false" class="mt-4 proCard">
-      <div class="BasicForm w-1/2">
+      <div class="BasicForm w-1/2 pt-[20px] my-0 mx-auto overflow-hidden">
         <FormKit type="form" submit-label="Save" @submit="submitHandler">
           <FormKitSchema :schema="schemas" />
         </FormKit>
@@ -94,7 +94,7 @@
     });
   }
   // Create payload
-  function createPayload(values): ICreateServerPayload {
+  function createPayload(values: ICreateServerPayload): ICreateServerPayload {
     let { name, ip, proxy_port, api_port, description } = values;
     let payload: ICreateServerPayload = {
       name,
@@ -124,11 +124,4 @@
   }
 </script>
 
-<style lang="less" scoped>
-  .BasicForm {
-    // width: 50%;
-    margin: 0 auto;
-    overflow: hidden;
-    padding-top: 20px;
-  }
-</style>
+<style lang="less" scoped></style>
