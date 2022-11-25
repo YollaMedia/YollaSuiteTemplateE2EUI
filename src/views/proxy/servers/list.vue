@@ -1,127 +1,31 @@
 <template>
+  <div class="n-layout-page-header">
+    <n-card :bordered="false" title="Server List" />
+  </div>
+  <div class="w-full flex justify-end px-4">
+    <n-button type="info" ghost class="font-bold">
+      <router-link to="/proxy/create">+ Add </router-link>
+    </n-button>
+  </div>
   <n-card :bordered="false" class="proCard">
-    <BasicTable
-      title="Server List"
-      titleTooltip="Server List Table"
-      :columns="columns"
-      :request="loadDataTable"
-      :row-key="(row) => row.id"
-      ref="actionRef"
-      :actionColumn="actionColumn"
-      @update:checked-row-keys="onCheckedRow"
-    >
-      <template #toolbar>
-        <!-- <n-button type="primary" @click="reloadTable">Refresh Data</n-button> -->
-        <n-button type="info" dashed @click="addServer"> Add </n-button>
-      </template>
-    </BasicTable>
+    <n-data-table :columns="columns" :data="list" :bordered="true" />
   </n-card>
 </template>
 
 <script lang="ts" setup>
-  import { reactive, ref, h } from 'vue';
-  import { BasicTable, TableAction } from '@/components/Table';
-  import { getServers, deleteServer } from '@/api/proxy/server';
-  import { columns } from './basicColumns';
-  import { useDialog, useMessage } from 'naive-ui';
-  import { DeleteOutlined, EditOutlined } from '@vicons/antd';
-  import { useRouter } from 'vue-router';
+  import { reactive, ref } from 'vue';
+  import { storeToRefs } from 'pinia';
+  import { useProxyServersStore } from '@/store/modules/proxy-servers';
+  // import { BasicTable, TableAction } from '@/components/Table';
+  import useColumns from './useColumns';
+  // import { DeleteOutlined, EditOutlined } from '@vicons/antd';
+  const store = useProxyServersStore();
+  let columns = useColumns();
+  const { list } = storeToRefs(store);
+  const params = {};
 
-  const message = useMessage();
-  const dialog = useDialog();
-  const router = useRouter();
-  const actionRef = ref();
-
-  const params = reactive({
-    pageSize: 5,
-    name: 'xiaoMa',
-  });
-
-  const actionColumn = reactive({
-    width: 150,
-    title: 'Actions',
-    key: 'action',
-    fixed: 'right',
-    align: 'center',
-    render(record) {
-      return h(TableAction as any, {
-        style: 'text',
-        actions: createActions(record),
-      });
-    },
-  });
-
-  function createActions(record) {
-    return [
-      {
-        label: 'Delete',
-        type: 'error',
-        // 配置 color 会覆盖 type
-        color: 'red',
-        icon: DeleteOutlined,
-        onClick: handleDelete.bind(null, record),
-        // 根据业务控制是否显示 isShow 和 auth 是并且关系
-        ifShow: () => {
-          return true;
-        },
-        // 根据权限控制是否显示: 有权限，会显示，支持多个
-        auth: ['basic_list'],
-      },
-      {
-        label: 'Edit',
-        type: 'primary',
-        icon: EditOutlined,
-        onClick: handleEdit.bind(null, record),
-        ifShow: () => {
-          return true;
-        },
-        auth: ['basic_list'],
-      },
-    ];
-  }
-
-  const loadDataTable = async (res) => {
-    let data = await getServers({ ...params, ...res });
-    let responseData = {
-      page: data.current_page,
-      pageCount: data.total,
-      pageSize: data.per_page,
-      list: data.data,
-    };
-    return responseData;
-  };
-
-  function onCheckedRow(rowKeys) {
-    console.log(rowKeys);
-  }
-  // Reload Table
-  function reloadTable() {
-    actionRef.value.reload();
-  }
-
-  function handleDelete(record) {
-    dialog.error({
-      title: 'Alert',
-      content: `Do you want to delete ${record.name}`,
-      positiveText: 'Confirm',
-      negativeText: 'Cancel',
-      onPositiveClick: () => {
-        message.success('Successfully');
-      },
-      onNegativeClick: () => {},
-    });
-    deleteServer(record.id).then(() => {
-      actionRef.value.reload();
-    });
-  }
-  // route to /proxy/create/${id}
-  function handleEdit(record) {
-    router.push(`/proxy/create/${record.id}`);
-  }
-  // route to /proxy/create
-  function addServer() {
-    router.push('/proxy/create');
-  }
+  //Get Server List
+  store.getServers(params);
 </script>
 
 <style lang="less" scoped></style>

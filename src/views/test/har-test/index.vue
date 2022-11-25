@@ -4,7 +4,7 @@
       <n-card :bordered="false" title="Upload Har File" />
     </div>
     <n-card :bordered="false" class="mt-4 proCard">
-      <div class="BasicForm w-1/2 pt-[20px] my-0 mx-auto overflow-hidden">
+      <div class="BasicForm w-1/2 pt-[20px] my-0 mx-auto">
         <FormKit type="form" submit-label="Save" @submit="submitHandler">
           <FormKitSchema :schema="schemas" />
         </FormKit>
