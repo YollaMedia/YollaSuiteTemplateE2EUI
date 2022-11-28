@@ -34,7 +34,7 @@
       <n-divider vertical />
 
       <!--刷新-->
-      <n-tooltip trigger="hover">
+      <!-- <n-tooltip trigger="hover">
         <template #trigger>
           <div class="table-toolbar-right-icon" @click="reload">
             <n-icon size="18">
@@ -43,7 +43,7 @@
           </div>
         </template>
         <span>刷新</span>
-      </n-tooltip>
+      </n-tooltip> -->
 
       <!--密度-->
       <n-tooltip trigger="hover">
@@ -61,7 +61,7 @@
             </n-dropdown>
           </div>
         </template>
-        <span>密度</span>
+        <span>Dense</span>
       </n-tooltip>
 
       <!--表格设置单独抽离成组件-->
@@ -117,17 +117,17 @@
   const densityOptions = [
     {
       type: 'menu',
-      label: '紧凑',
+      label: 'Compact',
       key: 'small',
     },
     {
       type: 'menu',
-      label: '默认',
+      label: 'default',
       key: 'medium',
     },
     {
       type: 'menu',
-      label: '宽松',
+      label: 'Loose',
       key: 'large',
     },
   ];

@@ -16,9 +16,6 @@
   import { ref } from 'vue';
   import type { Ref } from 'vue';
   import { useMessage } from 'naive-ui';
-  // import { FormKitSchema, createInput } from '@formkit/vue';
-  // import { getNode } from '@formkit/core';
-  // import { YollaCodemirror } from '../../../components/YollaFormKit';
   import { useRouter, useRoute } from 'vue-router';
   import { uploadHarTest } from '@/api/yolla-test/har-test';
   // Naive UI message Instance
@@ -48,7 +45,7 @@
       label: 'Har File',
       placeholder: 'Upload Har File',
       validation: 'required',
-      multiple: true,
+      multiple: false,
     },
     {
       $formkit: 'file',
@@ -56,63 +53,32 @@
       name: 'har_file_refresh',
       label: 'Har File Refresh',
       placeholder: 'Upload Har File Refresh',
-      // validation: 'required',
+      multiple: false,
     },
   ];
-  // Use if to get old value
-  // if (id) {
-  //   getServer(route.params.id).then((res) => {
-  //     for (const key in res) {
-  //       schemas.forEach((i) => {
-  //         if (i.name === key) {
-  //           const node = getNode(key);
-  //           node?.input(res[key]);
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
-  // Create payload
-  function createPayload(values) {
+  // Create form
+  function createForm(values) {
     let { report_folder, har_file, har_file_refresh } = values;
-    let payload = {
-      report_folder,
-      har_file,
-      har_file_refresh,
-    };
-    return payload;
+    let form = new FormData();
+    form.append('report_folder', report_folder);
+    form.append('har_file', har_file[0].file);
+    if (har_file_refresh) {
+      form.append('har_file_refresh', har_file_refresh[0].file);
+    }
+
+    return form;
   }
   // Create a new one
   function uploadHarTestHandler(values) {
-    let payload = createPayload(values);
-    uploadHarTest(payload).then(() => {
+    let form = createForm(values);
+    uploadHarTest(form).then(() => {
       message.success('Upload Successfully');
     });
   }
-  // Modify old setting
-  // function updateServerHandler(values) {
-  //   let payload = createPayload(values);
-  //   updateServer(payload, id).then(() => {
-  //     router.push('/proxy/servers');
-  //   });
-  // }
+  // submit handler
   function submitHandler(values) {
     uploadHarTestHandler(values);
   }
 </script>
 
-<style lang="less" scoped>
-  [data-type='file'] .formkit-input {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    cursor: pointer;
-    z-index: 2;
-    color: transparent;
-  }
-</style>
+<style lang="less" scoped></style>

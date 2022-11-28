@@ -16,9 +16,13 @@ export default {
         help: 'self-start',
         messages: 'self-start',
         inner:
-          '$reset w-full border border-gray-400 rounded mb-1 overflow-hidden focus-within:border-primary hover:border-primary',
+          '$reset w-full border border-gray-400 rounded mb-1 overflow-hidden focus-within:border-primary hover:border-primary ',
         input:
           '$reset w-full h-10 px-3 border-none text-base text-gray-700 placeholder-gray-400 focus-visible:outline-none',
+      },
+      file: {
+        outer: '$reset mb-5 w-full',
+        wrapper: 'w-full max-w-full',
       },
       number: {
         outer: '$reset mb-5 w-full',

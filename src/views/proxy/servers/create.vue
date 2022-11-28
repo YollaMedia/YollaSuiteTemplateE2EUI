@@ -17,12 +17,14 @@
   import { ref } from 'vue';
   import type { Ref } from 'vue';
   import { useMessage } from 'naive-ui';
-  import { FormKitSchema, createInput } from '@formkit/vue';
+  import { FormKitSchema } from '@formkit/vue';
   import { getNode } from '@formkit/core';
-  import { YollaCodemirror } from '../../../components/YollaFormKit';
-  import { createServer, getServer, updateServer } from '@/api/proxy/server';
   import { useRouter, useRoute } from 'vue-router';
   import { ICreateServerPayload } from '/#/proxyServers';
+  import { useProxyServersStore } from '@/store/modules/proxyServers';
+  import useFormKitSchema from './useFormKitSchema';
+  // Create store
+  const store = useProxyServersStore();
   // Naive UI message Instance
   const message = useMessage();
   // Vue Router, Route Instance
@@ -32,57 +34,12 @@
   const id: string | string[] = route.params.id;
   // If id has value, modify set to true
   let modify: Ref<boolean> = ref(id ? true : false);
-  // Form Kit schemas setting
-  const codemirror = createInput(YollaCodemirror);
-  const schemas = [
-    {
-      $formkit: 'text',
-      id: 'name',
-      name: 'name',
-      label: 'Name',
-      placeholder: 'Enter a name',
-      validation: 'required',
-    },
-    {
-      $formkit: 'text',
-      id: 'ip',
-      name: 'ip',
-      label: 'IP Address',
-      placeholder: 'Hostname with protocol',
-      validation: 'required',
-    },
-    {
-      $formkit: 'number',
-      label: 'Proxy Port',
-      id: 'proxy_port',
-      name: 'proxy_port',
-      value: 10080,
-      validation: 'required',
-    },
-    {
-      $formkit: 'number',
-      help: 'What temperature should the house be?',
-      label: 'API Port',
-      id: 'api_port',
-      name: 'api_port',
-      value: 10088,
-      validation: 'required',
-    },
-    {
-      $cmp: codemirror,
-      props: {
-        context: '$node.context',
-      },
-      id: 'description',
-      name: 'description',
-      $formkit: codemirror,
-      label: 'Description',
-      validation: 'required',
-    },
-  ];
+  // Form kit schema
+  const { schemas } = useFormKitSchema();
+
   // Use if to get old value
   if (id) {
-    getServer(route.params.id).then((res) => {
+    store.getServer(route.params.id, (res) => {
       for (const key in res) {
         schemas.forEach((i) => {
           if (i.name === key) {
@@ -108,14 +65,16 @@
   // Create a new one
   function createServerHandler(values) {
     let payload = createPayload(values);
-    createServer(payload).then(() => {
+    store.createServer(payload, () => {
+      message.success('Successfully');
       router.push('/proxy/servers');
     });
   }
   // Modify old setting
   function updateServerHandler(values) {
     let payload = createPayload(values);
-    updateServer(payload, id).then(() => {
+    store.updateServer(payload, id, () => {
+      message.success('Successfully');
       router.push('/proxy/servers');
     });
   }
