@@ -6,24 +6,25 @@ import {
   createServer as APICreateServer,
   updateServer as APIUpdateServer,
 } from '@/api/proxy/server';
+import { ICreateServerPayload, IStoreState } from '/#/proxyServers';
 export const useProxyServersStore = defineStore({
   id: 'proxy-servers',
-  state: () => ({
+  state: (): IStoreState => ({
     serversDataTable: { page: '', pageCount: '', pageSize: '', list: [] },
     list: [],
   }),
   actions: {
-    createServer(params, callback: Function) {
+    createServer(params: ICreateServerPayload, callback: Function) {
       APICreateServer(params).then(() => {
         callback();
       });
     },
-    getServer(id, callback: Function) {
+    getServer(id: string, callback: Function) {
       APIGetServer(id).then((res) => {
         callback(res);
       });
     },
-    updateServer(params, id, callback: Function) {
+    updateServer(params: ICreateServerPayload, id, callback: Function) {
       APIUpdateServer(params, id).then(() => {
         callback();
       });
@@ -37,7 +38,7 @@ export const useProxyServersStore = defineStore({
         this.list = res.data;
       });
     },
-    deleteServer(id: String | Number) {
+    deleteServer(id: string) {
       const params = {};
       APIDeleteServer(id).then(() => {
         this.getServers(params);

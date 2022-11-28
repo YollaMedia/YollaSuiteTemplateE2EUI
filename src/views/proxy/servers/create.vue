@@ -31,7 +31,7 @@
   const router = useRouter();
   const route = useRoute();
   // Get route parameter
-  const id: string | string[] = route.params.id;
+  const id: string = route.params.id;
   // If id has value, modify set to true
   let modify: Ref<boolean> = ref(id ? true : false);
   // Form kit schema
@@ -39,7 +39,7 @@
 
   // Use if to get old value
   if (id) {
-    store.getServer(route.params.id, (res) => {
+    store.getServer(id, (res) => {
       for (const key in res) {
         schemas.forEach((i) => {
           if (i.name === key) {

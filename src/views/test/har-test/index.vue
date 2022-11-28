@@ -18,44 +18,18 @@
   import { useMessage } from 'naive-ui';
   import { useRouter, useRoute } from 'vue-router';
   import { uploadHarTest } from '@/api/yolla-test/har-test';
+  import useFormKitSchema from './useFormKitSchema';
   // Naive UI message Instance
   const message = useMessage();
   // Vue Router, Route Instance
-  const router = useRouter();
-  const route = useRoute();
+  // const router = useRouter();
+  // const route = useRoute();
   // Get route parameter
-  const id: string | string[] = route.params.id;
+  // const id: string | string[] = route.params.id;
   // If id has value, modify set to true
-  let modify: Ref<boolean> = ref(id ? true : false);
+  // let modify: Ref<boolean> = ref(id ? true : false);
   // Form Kit schemas setting
-  // const codemirror = createInput(YollaCodemirror);
-  const schemas = [
-    {
-      $formkit: 'text',
-      id: 'report_folder',
-      name: 'report_folder',
-      label: 'Report Folder',
-      placeholder: 'Enter a Report Folder',
-      validation: 'required',
-    },
-    {
-      $formkit: 'file',
-      id: 'har_file',
-      name: 'har_file',
-      label: 'Har File',
-      placeholder: 'Upload Har File',
-      validation: 'required',
-      multiple: false,
-    },
-    {
-      $formkit: 'file',
-      id: 'har_file_refresh',
-      name: 'har_file_refresh',
-      label: 'Har File Refresh',
-      placeholder: 'Upload Har File Refresh',
-      multiple: false,
-    },
-  ];
+  const { schemas } = useFormKitSchema();
   // Create form
   function createForm(values) {
     let { report_folder, har_file, har_file_refresh } = values;
@@ -68,7 +42,7 @@
 
     return form;
   }
-  // Create a new one
+  // Call API
   function uploadHarTestHandler(values) {
     let form = createForm(values);
     uploadHarTest(form).then(() => {

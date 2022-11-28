@@ -5,3 +5,15 @@ export interface ICreateServerPayload {
   api_port: number;
   description: string;
 }
+
+export interface IStoreState {
+  serversDataTable: serversDataTable;
+  list: [];
+}
+
+interface serversDataTable {
+  page: string;
+  pageCount: string;
+  pageSize: string;
+  list: [];
+}
