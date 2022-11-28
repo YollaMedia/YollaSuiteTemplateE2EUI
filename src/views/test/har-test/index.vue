@@ -4,7 +4,7 @@
       <n-card :bordered="false" title="Upload Har File" />
     </div>
     <n-card :bordered="false" class="mt-4 proCard">
-      <div class="BasicForm w-1/2 pt-[20px] my-0 mx-auto overflow-hidden">
+      <div class="BasicForm w-1/2 pt-[20px] my-0 mx-auto">
         <FormKit type="form" submit-label="Save" @submit="submitHandler">
           <FormKitSchema :schema="schemas" />
         </FormKit>
@@ -16,9 +16,6 @@
   import { ref } from 'vue';
   import type { Ref } from 'vue';
   import { useMessage } from 'naive-ui';
-  // import { FormKitSchema, createInput } from '@formkit/vue';
-  // import { getNode } from '@formkit/core';
-  // import { YollaCodemirror } from '../../../components/YollaFormKit';
   import { useRouter, useRoute } from 'vue-router';
   import { uploadHarTest } from '@/api/yolla-test/har-test';
   // Naive UI message Instance
@@ -48,7 +45,7 @@
       label: 'Har File',
       placeholder: 'Upload Har File',
       validation: 'required',
-      multiple: true,
+      multiple: false,
     },
     {
       $formkit: 'file',
@@ -59,19 +56,7 @@
       // validation: 'required',
     },
   ];
-  // Use if to get old value
-  // if (id) {
-  //   getServer(route.params.id).then((res) => {
-  //     for (const key in res) {
-  //       schemas.forEach((i) => {
-  //         if (i.name === key) {
-  //           const node = getNode(key);
-  //           node?.input(res[key]);
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
+
   // Create payload
   function createPayload(values) {
     let { report_folder, har_file, har_file_refresh } = values;
@@ -89,13 +74,7 @@
       message.success('Upload Successfully');
     });
   }
-  // Modify old setting
-  // function updateServerHandler(values) {
-  //   let payload = createPayload(values);
-  //   updateServer(payload, id).then(() => {
-  //     router.push('/proxy/servers');
-  //   });
-  // }
+
   function submitHandler(values) {
     uploadHarTestHandler(values);
   }

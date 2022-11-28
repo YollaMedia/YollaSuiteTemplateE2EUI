@@ -24,15 +24,6 @@
   import { BasicTable } from '@/components/Table';
   import useColumns from './useColumns';
   const { columns, actionColumn, addServer, list } = useColumns();
-  // const actionRef = ref();
-
-  // function onCheckedRow(rowKeys) {
-  //   console.log(rowKeys);
-  // }
-  // Reload Table
-  // function reloadTable() {
-  //   actionRef.value.reload();
-  // }
 </script>
 
 <style lang="less" scoped></style>

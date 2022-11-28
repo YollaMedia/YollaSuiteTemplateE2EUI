@@ -2,7 +2,9 @@ import { defineStore } from 'pinia';
 import {
   getServers as APIGetServers,
   deleteServer as APIDeleteServer,
-  getServer as APIgetServer,
+  getServer as APIGetServer,
+  createServer as APICreateServer,
+  updateServer as APIUpdateServer,
 } from '@/api/proxy/server';
 export const useProxyServersStore = defineStore({
   id: 'proxy-servers',
@@ -11,7 +13,21 @@ export const useProxyServersStore = defineStore({
     list: [],
   }),
   actions: {
-    getServer(id) {},
+    createServer(params, callback: Function) {
+      APICreateServer(params).then(() => {
+        callback();
+      });
+    },
+    getServer(id, callback: Function) {
+      APIGetServer(id).then((res) => {
+        callback(res);
+      });
+    },
+    updateServer(params, id, callback: Function) {
+      APIUpdateServer(params, id).then(() => {
+        callback();
+      });
+    },
     getServers(params) {
       APIGetServers(params).then((res) => {
         this.serversDataTable.page = res.current_page;
@@ -21,7 +37,7 @@ export const useProxyServersStore = defineStore({
         this.list = res.data;
       });
     },
-    deleteServer(id) {
+    deleteServer(id: String | Number) {
       const params = {};
       APIDeleteServer(id).then(() => {
         this.getServers(params);
