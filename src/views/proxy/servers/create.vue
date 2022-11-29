@@ -66,16 +66,16 @@
   function createServerHandler(values) {
     let payload = createPayload(values);
     store.createServer(payload, () => {
-      message.success('Successfully');
-      router.push('/proxy/servers');
+      // message.success('Successfully');
+      router.push({ name: 'proxy_servers' });
     });
   }
   // Modify old setting
   function updateServerHandler(values) {
     let payload = createPayload(values);
     store.updateServer(payload, id, () => {
-      message.success('Successfully');
-      router.push('/proxy/servers');
+      // message.success('Successfully');
+      router.push({ name: 'proxy_servers' });
     });
   }
   function submitHandler(values) {
