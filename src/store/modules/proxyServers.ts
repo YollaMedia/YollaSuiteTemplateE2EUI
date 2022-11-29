@@ -12,6 +12,8 @@ export const useProxyServersStore = defineStore({
   state: (): IStoreState => ({
     serversDataTable: { page: '', pageCount: '', pageSize: '', list: [] },
     list: [],
+    // For code mirror component
+    serverDataDescription: '',
   }),
   actions: {
     createServer(params: ICreateServerPayload, callback: Function) {
@@ -21,6 +23,8 @@ export const useProxyServersStore = defineStore({
     },
     getServer(id: string, callback: Function) {
       APIGetServer(id).then((res) => {
+        // For code mirror component
+        this.serverDataDescription = res.description;
         callback(res);
       });
     },

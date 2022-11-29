@@ -38,6 +38,7 @@ export default function () {
     },
     {
       $cmp: codemirror,
+      wrapperClass: 'max-w-full',
       props: {
         context: '$node.context',
       },

@@ -78,26 +78,26 @@ const routes: Array<RouteRecordRaw> = [
         },
         component: () => import('@/views/proxy/rewrite/index.vue'),
       },
-      {
-        path: 'redirect',
-        name: `${routeName}_redirect_rules`,
-        meta: {
-          title: 'Redirect Rules',
-          // permissions: ['proxy_redirect_rules'],
-          affix: true,
-        },
-        component: () => import('@/views/proxy/servers/list.vue'),
-      },
-      {
-        path: 'map',
-        name: `${routeName}_map`,
-        meta: {
-          title: 'Map to File',
-          // permissions: ['proxy_map'],
-          affix: true,
-        },
-        component: () => import('@/views/proxy/servers/list.vue'),
-      },
+      // {
+      //   path: 'redirect',
+      //   name: `${routeName}_redirect_rules`,
+      //   meta: {
+      //     title: 'Redirect Rules',
+      //     // permissions: ['proxy_redirect_rules'],
+      //     affix: true,
+      //   },
+      //   component: () => import('@/views/proxy/servers/list.vue'),
+      // },
+      // {
+      //   path: 'map',
+      //   name: `${routeName}_map`,
+      //   meta: {
+      //     title: 'Map to File',
+      //     // permissions: ['proxy_map'],
+      //     affix: true,
+      //   },
+      //   component: () => import('@/views/proxy/servers/list.vue'),
+      // },
       {
         path: 'map-remote/new',
         name: `${routeName}_map_remote`,
