@@ -18,7 +18,7 @@
   import { useMessage } from 'naive-ui';
   import { useRouter, useRoute } from 'vue-router';
   import { uploadHarTest } from '@/api/yolla-test/har-test';
-  import useFormKitSchema from './useFormKitSchema';
+  import useFormKitSchema from './testHarTestFormKitSchema';
   // Naive UI message Instance
   const message = useMessage();
   // Vue Router, Route Instance

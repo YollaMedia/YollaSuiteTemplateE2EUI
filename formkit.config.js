@@ -1,7 +1,13 @@
 import { generateClasses } from '@formkit/themes';
+import '@formkit/pro/genesis';
+// Pro FormKit setting
+import { createProPlugin, inputs } from '@formkit/pro';
+const pro = createProPlugin('fk-acec3bc060', inputs);
+
 // Reference: https://formkit.com/essentials/styling
 export default {
   theme: 'genesis',
+  plugins: [pro],
   config: {
     classes: generateClasses({
       global: {

@@ -22,7 +22,7 @@
   import { useRouter, useRoute } from 'vue-router';
   import { ICreateServerPayload } from '/#/proxyServers';
   import { useProxyServersStore } from '@/store/modules/proxyServers';
-  import useFormKitSchema from './useFormKitSchema';
+  import useFormKitSchema from './serversCreateFormKitSchema';
   // Create store
   const store = useProxyServersStore();
   // Naive UI message Instance

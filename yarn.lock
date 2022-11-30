@@ -859,7 +859,7 @@
     "@formkit/utils" "1.0.0-beta.12"
     "@formkit/validation" "1.0.0-beta.12"
 
-"@formkit/inputs@1.0.0-beta.12":
+"@formkit/inputs@1.0.0-beta.12", "@formkit/inputs@latest":
   "integrity" "sha512-aUejQw5amEG/Q3sORxlp4kHvAQdoxk4RyNKbU3etziAB9Ytz2E3WaU7TDcGVqjNlvcvrweL1Ou4V0WPmIDn+zQ=="
   "resolved" "https://registry.npmjs.org/@formkit/inputs/-/inputs-1.0.0-beta.12.tgz"
   "version" "1.0.0-beta.12"
@@ -873,6 +873,13 @@
   dependencies:
     "@formkit/core" "1.0.0-beta.12"
     "@formkit/utils" "1.0.0-beta.12"
+
+"@formkit/pro@^1.0.0-alpha.35":
+  "integrity" "sha512-+TXALDm3N+VcwW4ZBam192e06C0NcR+EhoH9zILMuJO88YiyRJ0oTIXy6xpIQmI38B7rv/m/DKqpTM/iNQqsHg=="
+  "resolved" "https://registry.npmjs.org/@formkit/pro/-/pro-1.0.0-alpha.35.tgz"
+  "version" "1.0.0-alpha.35"
+  dependencies:
+    "@formkit/inputs" "latest"
 
 "@formkit/rules@1.0.0-beta.12":
   "integrity" "sha512-i0puOJwnQVBEbYrrjvnKa3Y61AKa67BI5xkILoj7lxe7GLuodakK0J8Fd4svxa0wKMDj+GPzaDroFYT6L2TN1w=="
