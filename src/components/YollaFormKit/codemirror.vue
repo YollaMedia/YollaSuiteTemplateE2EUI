@@ -1,15 +1,15 @@
 <template>
-  <Codemirror @change="changeHandler" :modelValue="serverDataDescription" />
+  <Codemirror @change="changeHandler" :modelValue="value" />
 </template>
 
 <script setup>
-  import { useProxyServersStore } from '@/store/modules/proxyServers';
+  import { useCodeMirrorStore } from '@/store/modules/codeMirror';
   import { Codemirror } from 'vue-codemirror';
   import { storeToRefs } from 'pinia';
   // Create store
-  const store = useProxyServersStore();
+  const store = useCodeMirrorStore();
   store.$reset();
-  let { serverDataDescription } = storeToRefs(store);
+  let { value } = storeToRefs(store);
   const props = defineProps({
     context: Object,
   });

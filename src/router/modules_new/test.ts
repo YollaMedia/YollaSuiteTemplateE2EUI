@@ -21,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
       //   'proxy_map',
       //   'proxy_map_remote',
       // ],
-      sort: 0,
+      sort: 1,
     },
     children: [
       {
@@ -33,6 +33,27 @@ const routes: Array<RouteRecordRaw> = [
           affix: true,
         },
         component: () => import('@/views/test/har-test/index.vue'),
+      },
+      {
+        path: 'test-case/new',
+        name: `${routeName}_test_case_new`,
+        meta: {
+          title: 'Test Case',
+          // permissions: ['proxy_servers'],
+          affix: true,
+        },
+        component: () => import('@/views/test/test-case/index.vue'),
+      },
+      {
+        path: 'test-case/:id',
+        name: `${routeName}_test_case_dynamic`,
+        meta: {
+          title: 'Test Case',
+          // permissions: ['proxy_servers'],
+          isRoot: true,
+          hidden: true,
+        },
+        component: () => import('@/views/test/test-case/index.vue'),
       },
     ],
   },

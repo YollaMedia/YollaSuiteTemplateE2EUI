@@ -11,7 +11,7 @@ export default {
   config: {
     classes: generateClasses({
       global: {
-        label: '$reset block mb-1 font-bold text-lg',
+        label: '$reset block mb-1 font-bold text-md',
         help: '$reset text-xs text-gray-500',
         messages: '$reset list-none p-0 mt-1 mb-0',
         message: '$reset text-red-500 mb-1 text-xs font-bold',
@@ -39,9 +39,16 @@ export default {
           '$reset w-full h-10 px-3 border-none text-base text-gray-700 placeholder-gray-400 focus-visible:outline-none',
       },
       submit: {
-        wrapper: '$reset flex justify-end mt-3 max-w-full',
+        wrapper: '$reset flex justify-center mt-3 max-w-full',
         input:
           '$reset hover:bg-primary hover:text-white text-primary text-sm px-2 py-1 rounded border-[1px] border-primary transition-all duration-500',
+      },
+      checkbox: {
+        label: '$reset block font-bold text-md',
+      },
+      dropdown: {
+        input:
+          '$reset w-full h-10 px-3 border-none text-base text-gray-700 placeholder-gray-400 focus-visible:outline-none',
       },
     }),
   },

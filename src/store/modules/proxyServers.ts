@@ -7,6 +7,7 @@ import {
   updateServer as APIUpdateServer,
 } from '@/api/proxy/server';
 import { ICreateServerPayload, IStoreState } from '/#/proxyServers';
+import { useCodeMirrorStore } from '@/store/modules/codeMirror';
 export const useProxyServersStore = defineStore({
   id: 'proxy-servers',
   state: (): IStoreState => ({
@@ -23,8 +24,9 @@ export const useProxyServersStore = defineStore({
     },
     getServer(id: string, callback: Function) {
       APIGetServer(id).then((res) => {
+        const store = useCodeMirrorStore();
         // For code mirror component
-        this.serverDataDescription = res.description;
+        store.setValue(res.description);
         callback(res);
       });
     },

@@ -1,7 +1,6 @@
 import { YollaCodemirror } from '../../../components/YollaFormKit';
 import { createInput } from '@formkit/vue';
 import { rewriteTypes } from './helper';
-console.log(rewriteTypes);
 export default function () {
   const codemirror = createInput(YollaCodemirror);
   const schemas = [

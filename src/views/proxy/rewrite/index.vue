@@ -1,10 +1,5 @@
 <template>
   <div>
-    {{ match }}
-    <p></p>
-    <div>
-      {{ dynamicForm }}
-    </div>
     <div class="n-layout-page-header">
       <n-card :bordered="false" title="Proxy Rewrite Rule List" />
     </div>
@@ -78,13 +73,11 @@
   const { schemas } = useFormKitSchema();
   // Route
   // let route = useRoute();
-  //Remove map remote handler
   function clickHandler(id) {
     console.log(id);
   }
   // Used for filter list.
   let filter = ref('');
-  // Navie UI useMessage hook
 
   function submitHandler(e) {
     console.log(e);
