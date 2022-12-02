@@ -1,6 +1,5 @@
 import { YollaCodemirror } from '../../../components/YollaFormKit';
 import { createInput } from '@formkit/vue';
-import { string } from 'vue-types';
 export default function () {
   const codemirror = createInput(YollaCodemirror);
   const schemas = [
@@ -107,6 +106,7 @@ export default function () {
       name: 'fields',
       contentClass: 'flex flex-row',
       fieldsetClass: 'border-none',
+      addButtonClass: 'flex justify-end',
       children: [
         {
           $formkit: 'text',

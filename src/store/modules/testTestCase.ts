@@ -49,7 +49,6 @@ export const useTestTestCaseStore = defineStore({
       });
     },
     updateTestCase(id: string | number, params) {
-      console.log(params);
       APIUpdateTestCase(id, params).then(() => {
         location.reload();
       });
@@ -57,7 +56,6 @@ export const useTestTestCaseStore = defineStore({
   },
   getters: {
     searchFiltered: (state) => {
-      console.log(state.search);
       return state.search;
     },
   },

@@ -25,7 +25,7 @@ const routes: Array<RouteRecordRaw> = [
     },
     children: [
       {
-        path: 'har-test',
+        path: 'har-test/new',
         name: `${routeName}_har-test`,
         meta: {
           title: 'Test har-test',
