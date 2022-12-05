@@ -18,7 +18,7 @@ export interface IUserState {
 export const useUserStore = defineStore({
   id: 'app-user',
   state: (): IUserState => ({
-    token: storage.get(ACCESS_TOKEN, ''),
+    token: '123456' || storage.get(ACCESS_TOKEN, ''),
     username: '',
     welcome: '',
     avatar: '',

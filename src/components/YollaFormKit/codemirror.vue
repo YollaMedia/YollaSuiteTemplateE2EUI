@@ -1,5 +1,5 @@
 <template>
-  <Codemirror @change="changeHandler" :modelValue="value" />
+  <Codemirror @change="changeHandler" :modelValue="props.context.value || value" />
 </template>
 
 <script setup>

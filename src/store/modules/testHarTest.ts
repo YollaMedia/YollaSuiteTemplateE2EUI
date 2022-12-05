@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
-
+import { har_test_prefix } from '@/config/prefix.config';
+import { createHarTest as APICreateHarTest } from '@/api/yolla-test/har-test';
+import { isThisSecond } from 'date-fns';
 export const useTestHarTestStore = defineStore({
   id: 'har-test',
   state: () => ({
@@ -14,28 +16,51 @@ export const useTestHarTestStore = defineStore({
       proxy: {},
       browser: {},
       test_page: '',
-      test_runner: '',
+      test_runner: [],
       test_cases: [],
       test_suite: 'har_test',
     },
   }),
   actions: {
-    createHarTest(values) {
-      const formData = this.createForm(values);
-    },
-    createForm(values) {
+    createHarTest() {
       const form = new FormData();
-      const keys = Object.keys(values);
-      keys.forEach((i) => {
-        console.log(i, values[i]);
-        if (i == 'har_file') {
-          form.append(i, values[i][0].file);
+      const formKeys = Object.keys(this.createTestParams);
+      formKeys.forEach((key) => {
+        if (key == 'har_file') {
+          form.append(key, this.createTestParams[key][0].file);
+        } else if (key == 'test_runner') {
+          form.append(key, JSON.stringify(this.createTestParams[key]));
         } else {
-          form.append(i, values[i]);
+          form.append(key, this.createTestParams[key]);
         }
       });
-
-      return form;
+      APICreateHarTest(form).then((res) => {
+        console.log(res);
+      });
+    },
+    adjustForm(values) {
+      const keys = Object.keys(values);
+      const harTestReg = new RegExp(har_test_prefix);
+      const adjustTestCases = {};
+      keys.forEach((i) => {
+        if (harTestReg.test(i)) {
+          const [prefix, caseName, fieldName] = i.split('__');
+          if (!adjustTestCases[caseName]) {
+            adjustTestCases[caseName] = {
+              [fieldName]: values[i],
+            };
+          } else {
+            adjustTestCases[caseName][fieldName] = values[i];
+          }
+        }
+      });
+      const adjustTestCasesKeys = Object.keys(adjustTestCases);
+      adjustTestCasesKeys.forEach((i) => {
+        const testCase = { ...adjustTestCases[i] };
+        testCase.name = i;
+        this.createTestParams.test_cases.push(testCase);
+      });
+      this.createHarTest();
     },
   },
 });

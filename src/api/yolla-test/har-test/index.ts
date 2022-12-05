@@ -1,8 +1,8 @@
 import { http } from '@/utils/http/axios';
 
-export function uploadHarTest(form) {
+export function createHarTest(form) {
   return http.request({
-    url: '/test/upload',
+    url: '/test/har-test',
     method: 'post',
     params: form,
   });

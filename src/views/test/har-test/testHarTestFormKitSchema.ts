@@ -2,6 +2,8 @@ import { getServers as APIGetServers } from '@/api/proxy/server';
 import { getTestCases as APIGetTestCases } from '@/api/test/test-case';
 import { YollaCodemirror } from '../../../components/YollaFormKit';
 import { createInput } from '@formkit/vue';
+import { har_test_prefix } from '@/config/prefix.config';
+
 const codemirror = createInput(YollaCodemirror);
 // Get server to test runner dropdown list.
 const proxyServers = await APIGetServers({});
@@ -24,36 +26,35 @@ harDefaultTestCase.forEach((i, idx) => {
     children: [`Test Case #${idx + 1} : ${i.case_name}`],
   });
   // create form kit
-  i.fields.forEach((i) => {
-    if (i.type == 'string' || i.type == 'int' || i.type == 'float') {
+  i.fields.forEach((field) => {
+    if (field.type == 'string' || field.type == 'int' || field.type == 'float') {
       defaultSchemas.push({
         $formkit: 'text',
-        id: 'page_url',
-        name: i.name,
-        label: i.name,
-        value: i.default_value,
+        name: `${har_test_prefix}__${i.case_name}__${field.name}`,
+        label: field.name,
+        value: field.default_value,
         wrapperClass: 'w-1/4',
       });
-    } else if (i.type == 'boolean') {
+    } else if (field.type == 'boolean') {
       defaultSchemas.push({
         $formkit: 'radio',
-        name: i.name,
-        label: i.name,
+        name: `${har_test_prefix}__${i.case_name}__${field.name}`,
+        label: field.name,
         options: ['true', 'false'],
-        value: i.default_value,
+        value: field.default_value,
         optionsClass: 'flex',
         optionClass: 'w-1/2',
       });
     } else {
       defaultSchemas.push({
-        value: i.default_value,
+        value: field.default_value,
         wrapperClass: 'max-w-full',
         props: {
           context: '$node.context',
         },
-        name: i.name,
+        name: `${har_test_prefix}__${i.case_name}__${field.name}`,
         $formkit: codemirror,
-        label: i.name,
+        label: field.name,
         labelClass: 'mb-2',
         innerClass: 'w-1/4',
       });
@@ -81,13 +82,14 @@ export default function () {
       wrapperClass: 'w-1/4',
     },
     {
-      $formkit: 'dropdown',
+      $formkit: 'autocomplete',
       name: 'test_runner',
       label: 'Test Runner',
       options: testRunnerDropdown,
       placeholder: 'Choose a Test Runner.',
       validation: 'required',
-      wrapperClass: 'w-1/4',
+      // wrapperClass: 'w-1/4',
+      multiple: true,
     },
     {
       $formkit: 'textarea',
@@ -110,9 +112,15 @@ export default function () {
       attrs: {
         class: 'font-bold text-lg mb-2',
       },
-      children: ['Default Test Cases'],
+      children: ['Default Test Cases Fields'],
     },
-    ...defaultSchemas,
+    {
+      $el: 'div',
+      attrs: {
+        class: 'border-2 p-2',
+      },
+      children: [...defaultSchemas],
+    },
   ];
   return { schemas };
 }

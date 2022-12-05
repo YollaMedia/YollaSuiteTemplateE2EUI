@@ -18,13 +18,12 @@
   // ex: let modify: Ref<boolean>
   import { storeToRefs } from 'pinia';
   import { useMessage } from 'naive-ui';
-  import { uploadHarTest } from '@/api/yolla-test/har-test';
   import useFormKitSchema from './testHarTestFormKitSchema';
   import { useTestHarTestStore } from '@/store/modules/testHarTest';
   // Naive UI message Instance
   const message = useMessage();
   let { createTestParams } = storeToRefs(useTestHarTestStore());
-  const { createHarTest } = useTestHarTestStore();
+  const { adjustForm } = useTestHarTestStore();
   // Form Kit schemas setting
   const { schemas } = useFormKitSchema();
   // Call API
@@ -36,7 +35,7 @@
   }
   // submit handler
   function submitHandler(values) {
-    createHarTest(values);
+    adjustForm(values);
   }
 </script>
 
