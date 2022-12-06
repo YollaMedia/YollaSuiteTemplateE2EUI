@@ -5,7 +5,7 @@ import {
   getTestCase as APIGetCase,
   deleteTestCase as APIDeleteTestCase,
   updateTestCase as APIUpdateTestCase,
-} from '@/api/test/test-case';
+} from '@/api/yolla-test/test-case';
 import { ITestCaseStoreState, ICreateTestCaseParams } from '/#/testTestCase';
 import { useCodeMirrorStore } from '@/store/modules/codeMirror';
 

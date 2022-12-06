@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia';
 import { har_test_prefix } from '@/config/prefix.config';
-import { createHarTest as APICreateHarTest } from '@/api/yolla-test/har-test';
-import { isThisSecond } from 'date-fns';
+import {
+  createHarTest as APICreateHarTest,
+  getHarTest as APIGetHarTest,
+} from '@/api/yolla-test/har-test';
 export const useTestHarTestStore = defineStore({
   id: 'har-test',
   state: () => ({
@@ -16,7 +18,7 @@ export const useTestHarTestStore = defineStore({
       proxy: {},
       browser: {},
       test_page: '',
-      test_runner: [],
+      test_runner: '',
       test_cases: [],
       test_suite: 'har_test',
     },
@@ -29,14 +31,15 @@ export const useTestHarTestStore = defineStore({
         if (key == 'har_file') {
           form.append(key, this.createTestParams[key][0].file);
         } else if (key == 'test_runner') {
+          form.append(key, JSON.stringify([this.createTestParams[key]]));
+        } else if (typeof this.createTestParams[key] == 'object') {
           form.append(key, JSON.stringify(this.createTestParams[key]));
         } else {
           form.append(key, this.createTestParams[key]);
         }
       });
-      APICreateHarTest(form).then((res) => {
-        console.log(res);
-      });
+
+      APICreateHarTest(form);
     },
     adjustForm(values) {
       const keys = Object.keys(values);
@@ -61,6 +64,11 @@ export const useTestHarTestStore = defineStore({
         this.createTestParams.test_cases.push(testCase);
       });
       this.createHarTest();
+    },
+    getHarTest(id) {
+      APIGetHarTest(id).then((res) => {
+        console.log(res);
+      });
     },
   },
 });

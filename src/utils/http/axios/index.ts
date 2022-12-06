@@ -200,7 +200,7 @@ const transform: AxiosTransform = {
     const err: string = error.toString();
     try {
       if (code === 'ECONNABORTED' && message.indexOf('timeout') !== -1) {
-        $message.error('接口请求超时，请刷新页面重试!');
+        $message.error('Request Timeout Please Refresh!');
         return;
       }
       if (err && err.includes('Network Error')) {
@@ -261,7 +261,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           // 接口拼接地址
           urlPrefix: urlPrefix,
           //  是否加入时间戳
-          joinTime: true,
+          joinTime: false,
           // 忽略重复请求
           ignoreCancelToken: true,
           // 是否携带token

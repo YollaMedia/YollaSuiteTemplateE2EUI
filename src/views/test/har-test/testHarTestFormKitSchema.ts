@@ -1,5 +1,5 @@
 import { getServers as APIGetServers } from '@/api/proxy/server';
-import { getTestCases as APIGetTestCases } from '@/api/test/test-case';
+import { getTestCases as APIGetTestCases } from '@/api/yolla-test/test-case';
 import { YollaCodemirror } from '../../../components/YollaFormKit';
 import { createInput } from '@formkit/vue';
 import { har_test_prefix } from '@/config/prefix.config';
@@ -25,11 +25,12 @@ harDefaultTestCase.forEach((i, idx) => {
     },
     children: [`Test Case #${idx + 1} : ${i.case_name}`],
   });
-  // create form kit
+  // create form kit which fields are from create test cases.
   i.fields.forEach((field) => {
     if (field.type == 'string' || field.type == 'int' || field.type == 'float') {
       defaultSchemas.push({
         $formkit: 'text',
+        // Use prefix for creating API payload easily.
         name: `${har_test_prefix}__${i.case_name}__${field.name}`,
         label: field.name,
         value: field.default_value,
@@ -44,6 +45,7 @@ harDefaultTestCase.forEach((i, idx) => {
         value: field.default_value,
         optionsClass: 'flex',
         optionClass: 'w-1/2',
+        fieldsetClass: 'w-1/4',
       });
     } else {
       defaultSchemas.push({
@@ -82,14 +84,13 @@ export default function () {
       wrapperClass: 'w-1/4',
     },
     {
-      $formkit: 'autocomplete',
+      $formkit: 'dropdown',
       name: 'test_runner',
       label: 'Test Runner',
       options: testRunnerDropdown,
       placeholder: 'Choose a Test Runner.',
       validation: 'required',
-      // wrapperClass: 'w-1/4',
-      multiple: true,
+      wrapperClass: 'w-1/4',
     },
     {
       $formkit: 'textarea',

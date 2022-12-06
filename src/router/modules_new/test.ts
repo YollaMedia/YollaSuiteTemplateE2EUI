@@ -13,23 +13,36 @@ const routes: Array<RouteRecordRaw> = [
       title: 'Test',
       icon: renderIcon(CloudServerOutlined),
       ignoreAuth: true,
-      // permissions: [
-      //   'proxy_servers',
-      //   'proxy_servers',
-      //   'proxy_rewrite_rules',
-      //   'proxy_redirect_rules',
-      //   'proxy_map',
-      //   'proxy_map_remote',
-      // ],
       sort: 1,
     },
     children: [
       {
-        path: 'har-test/new',
-        name: `${routeName}_har-test`,
+        path: 'list',
+        name: `${routeName}_list`,
         meta: {
-          title: 'Test har-test',
+          title: 'Test List',
           // permissions: ['proxy_servers'],
+          affix: true,
+        },
+        component: () => import('@/views/test/list/index.vue'),
+      },
+      {
+        path: 'har-test/new',
+        name: `test_har_test`,
+        meta: {
+          title: 'Create Har Test',
+          // permissions: ['proxy_servers'],
+          affix: true,
+        },
+        component: () => import('@/views/test/har-test/index.vue'),
+      },
+      {
+        path: 'har-test/:id',
+        name: `edit_har_test`,
+        meta: {
+          title: 'Create Har Test',
+          // permissions: ['proxy_servers'],
+          hidden: true,
           affix: true,
         },
         component: () => import('@/views/test/har-test/index.vue'),
@@ -38,7 +51,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'test-case/new',
         name: `${routeName}_test_case_new`,
         meta: {
-          title: 'Test Case',
+          title: 'Create Test Case',
           // permissions: ['proxy_servers'],
           affix: true,
         },

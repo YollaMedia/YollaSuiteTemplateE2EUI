@@ -59,8 +59,10 @@ export default {
       dropdown: {
         outer: '$reset mb-5 w-full',
         wrapper: 'w-full max-w-full',
-        // input:
-        //   '$reset w-full h-10 px-3 border-none text-base text-gray-700 placeholder-gray-400 focus-visible:outline-none',
+      },
+      radio: {
+        outer: '$reset mb-5 w-full',
+        fieldset: 'w-full max-w-full',
       },
     }),
   },

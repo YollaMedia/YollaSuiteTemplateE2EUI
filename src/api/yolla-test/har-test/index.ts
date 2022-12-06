@@ -7,3 +7,10 @@ export function createHarTest(form) {
     params: form,
   });
 }
+
+export function getHarTest(id) {
+  return http.request({
+    url: `/test/har-test/${id}`,
+    method: 'get',
+  });
+}
