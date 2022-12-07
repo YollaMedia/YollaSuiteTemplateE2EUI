@@ -24,7 +24,7 @@ export const useTestHarTestStore = defineStore({
     },
   }),
   actions: {
-    createHarTest() {
+    createHarTest(callBack) {
       const form = new FormData();
       const formKeys = Object.keys(this.createTestParams);
       formKeys.forEach((key) => {
@@ -39,9 +39,11 @@ export const useTestHarTestStore = defineStore({
         }
       });
 
-      APICreateHarTest(form);
+      APICreateHarTest(form).then(() => {
+        callBack();
+      });
     },
-    adjustForm(values) {
+    adjustForm(values, callBack) {
       const keys = Object.keys(values);
       const harTestReg = new RegExp(har_test_prefix);
       const adjustTestCases = {};
@@ -63,11 +65,17 @@ export const useTestHarTestStore = defineStore({
         testCase.name = i;
         this.createTestParams.test_cases.push(testCase);
       });
-      this.createHarTest();
+      this.createHarTest(callBack);
     },
     getHarTest(id) {
       APIGetHarTest(id).then((res) => {
-        console.log(res);
+        this.createTestParams = res;
+        const keys = Object.keys(res);
+        keys.forEach((i) => {
+          if (i == 'test_runner') {
+            this.createTestParams.test_runner = res[i]['api_server'][0].id;
+          }
+        });
       });
     },
   },

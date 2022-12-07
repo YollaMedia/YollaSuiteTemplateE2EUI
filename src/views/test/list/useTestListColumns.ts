@@ -52,7 +52,7 @@ export default function () {
         // 配置 color 会覆盖 type
         color: 'red',
         icon: DatabaseOutlined,
-        onClick: handleDelete.bind(null, record),
+        onClick: toReport.bind(null, record),
         // 根据业务控制是否显示 isShow 和 auth 是并且关系
         ifShow: () => {
           return true;
@@ -72,19 +72,8 @@ export default function () {
       },
     ];
   }
-  function handleDelete(record) {
-    // dialog.error({
-    //   title: 'Alert',
-    //   content: `Do you want to delete ${record.name}`,
-    //   positiveText: 'Confirm',
-    //   negativeText: 'Cancel',
-    //   onPositiveClick: () => {
-    //     store.deleteServer(record.id);
-    //     // actionRef.value.reload();
-    //     message.success('Successfully');
-    //   },
-    //   onNegativeClick: () => {},
-    // });
+  function toReport(record) {
+    router.push({ name: 'Test_test_report', params: { id: record.id } });
   }
   // route to /proxy/create/${id}
   function handleEdit(record) {

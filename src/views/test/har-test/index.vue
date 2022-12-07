@@ -21,7 +21,7 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
   import type { Ref } from 'vue';
-  import { useRoute } from 'vue-router';
+  import { useRoute, useRouter } from 'vue-router';
   import { storeToRefs } from 'pinia';
   import { useMessage } from 'naive-ui';
   import useFormKitSchema from './testHarTestFormKitSchema';
@@ -29,21 +29,33 @@
   // Naive UI message Instance
   const message = useMessage();
   const route = useRoute();
+  const router = useRouter();
+
   const { adjustForm, getHarTest } = useTestHarTestStore();
+  const store = useTestHarTestStore();
+  // reset store---------------------------------
+  store.$reset();
+  // set createTestParams------------------------
+  const { createTestParams } = storeToRefs(useTestHarTestStore());
+  // Get route id, to check disabled or not.-----
   const { id } = route.params;
   let disbled: Ref<boolean> = ref(false);
   if (id && id != 'new') {
     disbled.value = true;
     getHarTest(id);
   }
-  let { createTestParams } = storeToRefs(useTestHarTestStore());
+  //---------------------------------------------
 
-  // Form Kit schemas setting
+  // Form Kit schemas setting--------------------
   const { schemas } = useFormKitSchema();
-  // submit handler
+  //---------------------------------------------
+  // submit handler -----------------------------
   function submitHandler(values) {
-    adjustForm(values);
+    adjustForm(values, () => {
+      router.push({ name: 'Test_list' });
+    });
   }
+  //---------------------------------------------
 </script>
 
 <style lang="less" scoped></style>
