@@ -22,6 +22,14 @@ export const useTestTestCaseStore = defineStore({
     },
   }),
   actions: {
+    setInitialCaseValue() {
+      this.caseValue = {
+        case_name: '',
+        test_suite: [],
+        description: '',
+        fields: [],
+      };
+    },
     createTestCase(params: ICreateTestCaseParams) {
       APICreateTestCase(params).then(() => {
         this.getTestCases();
@@ -33,6 +41,7 @@ export const useTestTestCaseStore = defineStore({
       });
     },
     getTestCase(id: string | number) {
+      this.setInitialCaseValue();
       APIGetCase(id).then((res) => {
         const store = useCodeMirrorStore();
         const { case_name, test_suite, description, fields } = res;

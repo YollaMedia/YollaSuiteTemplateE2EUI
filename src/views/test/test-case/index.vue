@@ -58,7 +58,14 @@
         <n-gi span="4" class="mb-6">
           <n-h1 type="dark" class="mb-0" style="margin-bottom: -10px"> Create/Edit Test Case </n-h1>
           <n-p depth="3" class="mt-0 mb-4"> ID: ###, Created: ####-##-##, Updated: ####-##-##</n-p>
-          <FormKit type="form" submit-label="Save" @submit="submitHandler" v-model="caseValue">
+
+          <FormKit
+            id="testCaseFormId"
+            type="form"
+            submit-label="Save"
+            @submit="submitHandler"
+            v-model="caseValue"
+          >
             <FormKitSchema :schema="schemas" />
           </FormKit>
         </n-gi>
@@ -67,13 +74,14 @@
   </div>
 </template>
 <script setup>
-  // import { ref } from 'vue';
+  import { onBeforeUnmount } from 'vue';
   import { useRoute } from 'vue-router';
   import { storeToRefs } from 'pinia';
   import { CloseOutlined } from '@vicons/antd';
   import useFormKitSchema from './testTestCaseFormKitSchema';
   import { useTestTestCaseStore } from '@/store/modules/testTestCase';
   import { useDialog } from 'naive-ui';
+  import { reset } from '@formkit/core';
   // Search input
   // const search = ref('');
   // get test cases store data
@@ -115,4 +123,9 @@
   }
   // Get All Test Cases
   getTestCases();
+  // before component unmount, reset FormKit to prevent FormKit
+  // Repeater Component's bug.
+  onBeforeUnmount(() => {
+    reset('testCaseFormId');
+  });
 </script>

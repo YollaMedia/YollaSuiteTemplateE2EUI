@@ -65,6 +65,7 @@ const routes: Array<RouteRecordRaw> = [
           // permissions: ['proxy_servers'],
           isRoot: true,
           hidden: true,
+          keepAlive: false,
         },
         component: () => import('@/views/test/test-case/index.vue'),
       },
