@@ -7,6 +7,7 @@ import {
   updateServer as APIUpdateServer,
 } from '@/api/proxy/server';
 import { ICreateServerPayload, IStoreState } from '/#/proxyServers';
+
 export const useProxyServersStore = defineStore({
   id: 'proxy-servers',
   state: (): IStoreState => ({
