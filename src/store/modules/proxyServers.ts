@@ -36,13 +36,14 @@ export const useProxyServersStore = defineStore({
       });
     },
     getServers(params) {
-      APIGetServers(params).then((res) => {
-        this.serversDataTable.page = res.current_page;
-        this.serversDataTable.pageCount = res.total;
-        this.serversDataTable.pageSize = res.per_page;
-        this.serversDataTable.list = res.data;
-        this.list = res.data;
-      });
+      return APIGetServers(params);
+      // APIGetServers(params).then((res) => {
+      //   this.serversDataTable.page = res.current_page;
+      //   this.serversDataTable.pageCount = res.total;
+      //   this.serversDataTable.pageSize = res.per_page;
+      //   this.serversDataTable.list = res.data;
+      //   this.list = res.data;
+      // });
     },
     deleteServer(id: string) {
       const params = {};

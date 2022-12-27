@@ -8,8 +8,12 @@ import { useRouter } from 'vue-router';
 export default function () {
   const store = useProxyServersStore();
   // Get server list
-  store.getServers({});
-  let { list } = storeToRefs(store);
+  const loadDataTable = async (params) => {
+    const payLoad = {};
+    const data = await store.getServers(payLoad);
+    return data;
+  };
+  const { list } = storeToRefs(store);
   const message = useMessage();
   const dialog = useDialog();
   const router = useRouter();
@@ -98,5 +102,5 @@ export default function () {
   function addServer() {
     router.push('/proxy/create');
   }
-  return { columns, actionColumn, addServer, list };
+  return { columns, actionColumn, addServer, loadDataTable };
 }

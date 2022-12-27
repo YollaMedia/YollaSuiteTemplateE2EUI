@@ -79,5 +79,5 @@ export default function () {
   function handleEdit(record) {
     router.push({ name: 'edit_har_test', params: { id: record.id } });
   }
-  return { columns, actionColumn, list, loadDataTable, filter };
+  return { columns, actionColumn, loadDataTable, filter };
 }

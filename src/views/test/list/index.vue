@@ -29,7 +29,7 @@
   import { BasicTable } from '@/components/Table';
   import useTestListColumns from './useTestListColumns';
   import testListFormKitSchema from './testListFormKitSchema.ts';
-  const { columns, actionColumn, list, loadDataTable, filter } = useTestListColumns();
+  const { columns, actionColumn, loadDataTable, filter } = useTestListColumns();
   // Form Kit schemas setting
   const { schemas } = testListFormKitSchema();
   const actionRef = ref();
