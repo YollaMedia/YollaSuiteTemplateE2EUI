@@ -23,7 +23,7 @@
           form-class="flex justify-content-around"
           :schema="schema"
           :modelValue="filter"
-          @submit="submitHandler"
+          :submit="submitHandler"
         />
       </template>
     </BasicTable>

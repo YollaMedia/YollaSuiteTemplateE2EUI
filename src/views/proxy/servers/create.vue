@@ -12,7 +12,7 @@
           :useSubmit="true"
           :schema="schema"
           :modelValue="createServerPayload"
-          @submit="submitHandler"
+          :submit="submitHandler"
           submitLabel="Save"
         />
       </div>

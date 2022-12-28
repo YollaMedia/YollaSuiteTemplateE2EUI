@@ -20,6 +20,7 @@ const defaultSchemas: any[] = [];
 harDefaultTestCase.forEach((i, idx) => {
   defaultSchemas.push({
     type: 'el',
+    elType: 'p',
     class: 'font-bold mb-2',
     children: `Test Case #${idx + 1} : ${i.case_name}`,
   });

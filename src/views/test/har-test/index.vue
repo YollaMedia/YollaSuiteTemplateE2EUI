@@ -17,14 +17,15 @@
         <YInputs
           :useSubmit="true"
           :schema="schema"
-          @submit="submitHandler"
+          :submit="submitHandler"
           submitLabel="Save"
           :modelValue="createTestParams"
+          :disabled="disabled"
         >
           <template #bottom>
             <p class="font-bold text-lg mb-2">Default Test Cases Fields</p>
             <div class="border-2 p-2">
-              <YInputs :useSubmit="false" :schema="defaultSchemas" />
+              <YInputs :useSubmit="false" :schema="defaultSchemas" outerClass="hidden" />
             </div>
           </template>
         </YInputs>
@@ -51,9 +52,9 @@
   const { createTestParams } = storeToRefs(store);
   // Get route id, to check disabled or not.-----
   const { id } = route.params;
-  let disbled: Ref<boolean> = ref(false);
+  let disabled: Ref<boolean> = ref(false);
   if (id && id != 'new') {
-    disbled.value = true;
+    disabled.value = true;
     getHarTest(id);
   }
   //---------------------------------------------
@@ -104,10 +105,9 @@
   //---------------------------------------------
   // submit handler -----------------------------
   function submitHandler(values) {
-    console.log(values);
-    // adjustForm(values, () => {
-    //   router.push({ name: 'Test_list' });
-    // });
+    adjustForm(values, () => {
+      router.push({ name: 'Test_list' });
+    });
   }
   //---------------------------------------------
 </script>

@@ -67,7 +67,7 @@
             :useSubmit="true"
             :schema="schema"
             :modelValue="caseValue"
-            @submit="submitHandler"
+            :submit="submitHandler"
             submitLabel="Save"
           />
         </n-gi>

@@ -1,11 +1,12 @@
 <template>
-  {{ formModelValue }}
   <FormKit
     id="testCaseFormId"
     type="form"
     :submit-label="submitLabel"
     :actions="useSubmit"
+    :disabled="disabled"
     v-model="formModelValue"
+    @submit="submit"
   >
     <slot name="top"></slot>
     <div :class="formClass">
@@ -56,6 +57,7 @@
     useSubmit: boolean;
     formClass?: string;
     schema: IFormKitProps[];
+    submit?: () => {};
   }
   const props = defineProps<ISchema>();
   // Let FormKit use code mirror.
@@ -68,7 +70,7 @@
         i.type = {
           schema: [
             {
-              $el: 'p',
+              $el: i.elType,
               children: i.children,
               attrs: {
                 class: i.class,
