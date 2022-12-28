@@ -40,7 +40,7 @@
                     type="primary"
                     circle
                     size="tiny"
-                    class="text-primary"
+                    class="text-primary hover:bg-primary hover:text-white"
                     @click="handleDelete(i.id, i.case_name)"
                   >
                     <CloseOutlined style="width: 14px" />
@@ -50,7 +50,11 @@
             </n-list-item>
           </n-list>
           <router-link :to="{ name: 'Test_test_case_new' }">
-            <n-button type="primary" class="text-primary" style="width: 100%">
+            <n-button
+              type="primary"
+              class="text-primary hover:bg-primary hover:text-white"
+              style="width: 100%"
+            >
               + New Rewrite Rule
             </n-button>
           </router-link>
@@ -59,38 +63,120 @@
           <n-h1 type="dark" class="mb-0" style="margin-bottom: -10px"> Create/Edit Test Case </n-h1>
           <n-p depth="3" class="mt-0 mb-4"> ID: ###, Created: ####-##-##, Updated: ####-##-##</n-p>
 
-          <FormKit
-            id="testCaseFormId"
-            type="form"
-            submit-label="Save"
+          <YInputs
+            :useSubmit="true"
+            :schema="schema"
+            :modelValue="caseValue"
             @submit="submitHandler"
-            v-model="caseValue"
-          >
-            <FormKitSchema :schema="schemas" />
-          </FormKit>
+            submitLabel="Save"
+          />
         </n-gi>
       </n-grid>
     </n-card>
   </div>
 </template>
 <script setup>
-  import { onBeforeUnmount } from 'vue';
+  import { YInputs } from '@/components/YInputs';
   import { useRoute } from 'vue-router';
   import { storeToRefs } from 'pinia';
   import { CloseOutlined } from '@vicons/antd';
-  import useFormKitSchema from './testTestCaseFormKitSchema';
   import { useTestTestCaseStore } from '@/store/modules/testTestCase';
   import { useDialog } from 'naive-ui';
-  import { reset } from '@formkit/core';
   // Search input
   // const search = ref('');
   // get test cases store data
-  let { list, caseValue, search, searchFiltered } = storeToRefs(useTestTestCaseStore());
+  const store = useTestTestCaseStore();
+  store.$reset();
+  const { getTestCases, createTestCase, getTestCase, deleteTestCase, updateTestCase } = store;
+  let { list, caseValue, search, searchFiltered } = storeToRefs(store);
   const dialog = useDialog();
-  // Form Kit Schema
-  const { schemas } = useFormKitSchema();
-  const { getTestCases, createTestCase, getTestCase, deleteTestCase, updateTestCase } =
-    useTestTestCaseStore();
+  const schema = [
+    {
+      type: 'text',
+      name: 'case_name',
+      label: 'Case Name',
+      placeholder: 'Enter a name',
+      validation: 'required',
+      innerClass: 'w-2/5 rounded-none',
+    },
+    {
+      type: 'checkbox',
+      label: 'Test Suite',
+      name: 'test_suite',
+      options: {
+        e2e_test: 'E2E TEST',
+        har_test: 'HAR TEST',
+      },
+      fieldsetClass: 'border-none p-0',
+      optionsClass: 'flex',
+      optionClass: 'mr-3',
+      legendClass: 'text-sm p-0 mb-[4px]',
+      decoratorClass: 'rounded-none',
+    },
+    {
+      type: 'codemirror',
+      wrapperClass: 'max-w-full',
+      props: {
+        context: '$node.context',
+      },
+      name: 'description',
+      label: 'Description',
+      validation: 'required',
+      labelClass: 'mb-2',
+      innerClass: 'w-2/5 rounded-none',
+    },
+    {
+      type: 'repeater',
+      name: 'fields',
+      contentClass: 'flex flex-row',
+      fieldsetClass: 'border-none p-0',
+      addButtonClass: 'flex justify-end',
+      children: [
+        {
+          type: 'text',
+          name: 'name',
+          label: 'Case Name',
+          placeholder: 'URL',
+          outerClass: '$reset mb-0 w-1/5 mx-1 flex justify-center items-center',
+          innerClass: 'mb-0 rounded-none',
+        },
+        {
+          type: 'dropdown',
+          name: 'type',
+          label: 'Type',
+          options: ['string', 'int', 'float', 'boolean', 'object'],
+          outerClass: '$reset mb-0 w-1/5 mx-1 flex justify-center items-center',
+          wrapperClass: 'w-full',
+          innerClass: 'rounded-none',
+        },
+        {
+          type: 'text',
+          name: 'default_value',
+          label: 'Default',
+          placeholder: 'default value',
+          outerClass: '$reset mb-0 w-1/5 mx-1 flex justify-center items-center',
+          innerClass: 'mb-0 rounded-none',
+        },
+        {
+          type: 'checkbox',
+          label: 'ACTIONS',
+          label: 'Required',
+          name: 'required',
+          outerClass: '$reset mb-0 w-1/5 mx-1 flex justify-center items-center',
+          decoratorClass: 'rounded-none',
+        },
+        {
+          type: 'text',
+          label: 'Regex Validator',
+          id: 'regex_validator',
+          name: 'regex_validator',
+          outerClass: '$reset mb-0 w-1/5 mx-1 flex justify-center items-center',
+          innerClass: 'mb-0 rounded-none',
+        },
+      ],
+    },
+  ];
+
   const route = useRoute();
   // Get Case ID
   const id = route.params.id;
@@ -98,16 +184,16 @@
     getTestCase(id);
   }
 
-  function createTestCaseHandler(values) {
-    createTestCase(values);
+  function createTestCaseHandler() {
+    createTestCase();
   }
 
-  function updateTestCaseHandler(values) {
-    updateTestCase(id, values);
+  function updateTestCaseHandler() {
+    updateTestCase(id);
   }
 
-  function submitHandler(values) {
-    id !== 'new' && id ? updateTestCaseHandler(values) : createTestCaseHandler(values);
+  function submitHandler() {
+    id !== 'new' && id ? updateTestCaseHandler() : createTestCaseHandler();
   }
   function handleDelete(id, name) {
     dialog.error({
@@ -123,9 +209,4 @@
   }
   // Get All Test Cases
   getTestCases();
-  // before component unmount, reset FormKit to prevent FormKit
-  // Repeater Component's bug.
-  onBeforeUnmount(() => {
-    reset('testCaseFormId');
-  });
 </script>

@@ -51,6 +51,7 @@
       label: 'Name',
       placeholder: 'Enter a name',
       validation: 'required',
+      innerClass: 'rounded-none',
     },
     {
       type: 'text',
@@ -58,6 +59,7 @@
       label: 'IP Address',
       placeholder: 'Hostname with protocol',
       validation: 'required',
+      innerClass: 'rounded-none',
     },
     {
       type: 'number',
@@ -65,6 +67,7 @@
       name: 'proxy_port',
       value: 10080,
       validation: 'required',
+      innerClass: 'rounded-none',
     },
     {
       type: 'number',
@@ -72,6 +75,7 @@
       name: 'api_port',
       value: 10088,
       validation: 'required',
+      innerClass: 'rounded-none',
     },
     {
       type: 'codemirror',
@@ -82,6 +86,7 @@
       name: 'description',
       label: 'Description',
       validation: 'required',
+      innerClass: 'rounded-none',
     },
   ]);
   // Create a new one

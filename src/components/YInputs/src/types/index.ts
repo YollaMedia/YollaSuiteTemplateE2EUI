@@ -1,4 +1,14 @@
-export type ComponentType = 'text' | 'number' | 'dropdown' | 'date' | 'codemirror';
+export type ComponentType =
+  | 'text'
+  | 'number'
+  | 'dropdown'
+  | 'date'
+  | 'codemirror'
+  | 'checkbox'
+  | 'repeater'
+  | 'textarea'
+  | 'file'
+  | 'radio';
 
 export interface IFormKitProps {
   type: ComponentType;

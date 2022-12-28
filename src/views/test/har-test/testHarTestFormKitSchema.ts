@@ -19,17 +19,15 @@ const harDefaultTestCase = testCases.data.filter((i) => {
 const defaultSchemas: any[] = [];
 harDefaultTestCase.forEach((i, idx) => {
   defaultSchemas.push({
-    $el: 'p',
-    attrs: {
-      class: 'font-bold mb-2',
-    },
-    children: [`Test Case #${idx + 1} : ${i.case_name}`],
+    type: 'el',
+    class: 'font-bold mb-2',
+    children: `Test Case #${idx + 1} : ${i.case_name}`,
   });
   // create form kit which fields are from create test cases.
   i.fields.forEach((field) => {
     if (field.type == 'string' || field.type == 'int' || field.type == 'float') {
       defaultSchemas.push({
-        $formkit: 'text',
+        type: 'text',
         // Use prefix for creating API payload easily.
         name: `${har_test_prefix}__${i.case_name}__${field.name}`,
         label: field.name,
@@ -38,7 +36,7 @@ harDefaultTestCase.forEach((i, idx) => {
       });
     } else if (field.type == 'boolean') {
       defaultSchemas.push({
-        $formkit: 'radio',
+        type: 'radio',
         name: `${har_test_prefix}__${i.case_name}__${field.name}`,
         label: field.name,
         options: ['true', 'false'],
@@ -55,7 +53,7 @@ harDefaultTestCase.forEach((i, idx) => {
           context: '$node.context',
         },
         name: `${har_test_prefix}__${i.case_name}__${field.name}`,
-        $formkit: codemirror,
+        type: codemirror,
         label: field.name,
         labelClass: 'mb-2',
         innerClass: 'w-1/4',
@@ -66,62 +64,5 @@ harDefaultTestCase.forEach((i, idx) => {
   // defaultSchemas.push();
 });
 export default function () {
-  const schemas = [
-    {
-      $formkit: 'text',
-      id: 'test_page',
-      name: 'test_page',
-      label: 'Page URL',
-      validation: 'required',
-      wrapperClass: 'w-1/4',
-    },
-    {
-      $formkit: 'text',
-      id: 'page_title',
-      name: 'page_title',
-      label: 'Page Title',
-      validation: 'required',
-      wrapperClass: 'w-1/4',
-    },
-    {
-      $formkit: 'dropdown',
-      name: 'test_runner',
-      label: 'Test Runner',
-      options: testRunnerDropdown,
-      placeholder: 'Choose a Test Runner.',
-      validation: 'required',
-      wrapperClass: 'w-1/4',
-    },
-    {
-      $formkit: 'textarea',
-      id: 'description',
-      name: 'description',
-      label: 'Description',
-      validation: 'required',
-      wrapperClass: 'w-1/4',
-    },
-    {
-      $formkit: 'file',
-      id: 'har_file',
-      name: 'har_file',
-      label: 'Har File (Upload .har file)',
-      validation: 'required',
-      wrapperClass: 'w-1/4',
-    },
-    {
-      $el: 'p',
-      attrs: {
-        class: 'font-bold text-lg mb-2',
-      },
-      children: ['Default Test Cases Fields'],
-    },
-    {
-      $el: 'div',
-      attrs: {
-        class: 'border-2 p-2',
-      },
-      children: [...defaultSchemas],
-    },
-  ];
-  return { schemas };
+  return { testRunnerDropdown, defaultSchemas };
 }

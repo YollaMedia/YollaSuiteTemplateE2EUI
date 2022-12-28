@@ -6,8 +6,7 @@ import {
   deleteTestCase as APIDeleteTestCase,
   updateTestCase as APIUpdateTestCase,
 } from '@/api/yolla-test/test-case';
-import { ITestCaseStoreState, ICreateTestCaseParams } from '/#/testTestCase';
-import { useCodeMirrorStore } from '@/store/modules/codeMirror';
+import { ITestCaseStoreState } from '/#/testTestCase';
 
 export const useTestTestCaseStore = defineStore({
   id: 'test-case',
@@ -30,8 +29,8 @@ export const useTestTestCaseStore = defineStore({
         fields: [],
       };
     },
-    createTestCase(params: ICreateTestCaseParams) {
-      APICreateTestCase(params).then(() => {
+    createTestCase() {
+      APICreateTestCase(this.caseValue).then(() => {
         this.getTestCases();
       });
     },
@@ -43,13 +42,7 @@ export const useTestTestCaseStore = defineStore({
     getTestCase(id: string | number) {
       this.setInitialCaseValue();
       APIGetCase(id).then((res) => {
-        const store = useCodeMirrorStore();
-        const { case_name, test_suite, description, fields } = res;
-        this.caseValue.case_name = case_name;
-        this.caseValue.test_suite = test_suite;
-        this.caseValue.description = description;
-        store.setValue(description);
-        this.caseValue.fields = fields;
+        this.caseValue = res;
       });
     },
     deleteTestCase(id: string | number) {
@@ -57,8 +50,8 @@ export const useTestTestCaseStore = defineStore({
         this.getTestCases();
       });
     },
-    updateTestCase(id: string | number, params) {
-      APIUpdateTestCase(id, params).then(() => {
+    updateTestCase(id: string | number) {
+      APIUpdateTestCase(id, this.caseValue).then(() => {
         location.reload();
       });
     },
