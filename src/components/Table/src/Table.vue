@@ -29,7 +29,7 @@
             <n-switch v-model:value="isStriped" @update:value="setStriped" />
           </div>
         </template>
-        <span>表格斑马纹</span>
+        <span>Striped</span>
       </n-tooltip>
       <n-divider vertical />
 
@@ -65,9 +65,10 @@
       </n-tooltip>
 
       <!--表格设置单独抽离成组件-->
-      <ColumnSetting />
+      <!-- <ColumnSetting /> -->
     </div>
   </div>
+  <slot name="filter"></slot>
   <div class="s-table">
     <n-data-table
       ref="tableElRef"

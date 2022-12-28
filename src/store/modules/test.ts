@@ -1,6 +1,7 @@
 import { TGetReportParams, ITestReport, ITestConfig } from '/#/test';
 import { defineStore } from 'pinia';
 import { fetchTestReport } from '@/api/yolla-test/test-report/testReport';
+import { getTests as APIGetTests } from '@/api/yolla-test/index';
 
 export const useTestReportStore = defineStore({
   id: 'test_report',
@@ -38,6 +39,26 @@ export const useTestReportStore = defineStore({
       } finally {
         this.loading = false;
       }
+    },
+  },
+});
+
+export const useTestStore = defineStore({
+  id: 'test',
+  state: () => ({
+    list: [],
+    filter: {
+      type: '',
+      from: '',
+      to: '',
+    },
+    // pagination: {
+    //   pageSize: 10,
+    // },
+  }),
+  actions: {
+    getTests(payLoad) {
+      return APIGetTests(payLoad);
     },
   },
 });

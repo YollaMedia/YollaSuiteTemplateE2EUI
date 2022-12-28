@@ -2,18 +2,22 @@ export default {
   table: {
     apiSetting: {
       // 当前页的字段名
-      pageField: 'page',
+      pageField: 'current_page',
       // 每页数量字段名
-      sizeField: 'pageSize',
+      sizeField: 'per_page',
       // 接口返回的数据字段名
-      listField: 'list',
+      listField: 'data',
       // 接口返回总页数字段名
-      totalField: 'pageCount',
+      totalField: 'last_page',
     },
     //默认分页数量
-    defaultPageSize: 10,
+    defaultPageSize: 15,
     //可切换每页数量集合
     pageSizes: [10, 20, 30, 40, 50],
+    // Determine show size picker or not
+    showSizePicker: false,
+    // Determine show size jumper or not
+    showQuickJumper: false,
   },
   upload: {
     //考虑接口规范不同

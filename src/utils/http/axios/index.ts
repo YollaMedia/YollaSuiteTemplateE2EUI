@@ -58,7 +58,7 @@ const transform: AxiosTransform = {
 
     if (!data) {
       // return '[HTTP] Request has no return value';
-      throw new Error('请求出错，请稍候重试');
+      throw new Error('Request Error! Please Try Again.');
     }
     //  这里 code，result，message为 后台统一的字段，需要修改为项目自己的接口返回格式
     const { code, result, message } = data;
@@ -122,7 +122,7 @@ const transform: AxiosTransform = {
     throw new Error(errorMsg);
   },
 
-  // 请求之前处理config
+  // Deal Config Before Request
   beforeRequestHook: (config, options) => {
     const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true, urlPrefix } = options;
 
@@ -200,7 +200,7 @@ const transform: AxiosTransform = {
     const err: string = error.toString();
     try {
       if (code === 'ECONNABORTED' && message.indexOf('timeout') !== -1) {
-        $message.error('接口请求超时，请刷新页面重试!');
+        $message.error('Request Timeout Please Refresh!');
         return;
       }
       if (err && err.includes('Network Error')) {
@@ -251,7 +251,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           // 需要对返回数据进行处理
           isTransformResponse: true,
           // post请求的时候添加参数到url
-          joinParamsToUrl: false,
+          joinParamsToUrl: true,
           // 格式化提交参数时间
           formatDate: true,
           // 消息提示类型
@@ -261,7 +261,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           // 接口拼接地址
           urlPrefix: urlPrefix,
           //  是否加入时间戳
-          joinTime: true,
+          joinTime: false,
           // 忽略重复请求
           ignoreCancelToken: true,
           // 是否携带token

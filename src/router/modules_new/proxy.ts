@@ -57,27 +57,27 @@ const routes: Array<RouteRecordRaw> = [
         },
         component: () => import('@/views/proxy/servers/create.vue'),
       },
-      {
-        path: 'rewrite/new',
-        name: `${routeName}_rewrite_rules`,
-        meta: {
-          title: 'Rewrite Rules',
-          // permissions: ['proxy_rewrite_rules'],
-          isRoot: true,
-        },
-        component: () => import('@/views/proxy/rewrite/index.vue'),
-      },
-      {
-        path: 'rewrite/:id',
-        name: `${routeName}_rewrite_rules_dynamic`,
-        meta: {
-          title: 'Rewrite Rules',
-          // permissions: ['proxy_rewrite_rules'],
-          isRoot: true,
-          hidden: true,
-        },
-        component: () => import('@/views/proxy/rewrite/index.vue'),
-      },
+      // {
+      //   path: 'rewrite/new',
+      //   name: `${routeName}_rewrite_rules`,
+      //   meta: {
+      //     title: 'Rewrite Rules',
+      //     // permissions: ['proxy_rewrite_rules'],
+      //     isRoot: true,
+      //   },
+      //   component: () => import('@/views/proxy/rewrite/index.vue'),
+      // },
+      // {
+      //   path: 'rewrite/:id',
+      //   name: `${routeName}_rewrite_rules_dynamic`,
+      //   meta: {
+      //     title: 'Rewrite Rules',
+      //     // permissions: ['proxy_rewrite_rules'],
+      //     isRoot: true,
+      //     hidden: true,
+      //   },
+      //   component: () => import('@/views/proxy/rewrite/index.vue'),
+      // },
       // {
       //   path: 'redirect',
       //   name: `${routeName}_redirect_rules`,
@@ -98,27 +98,27 @@ const routes: Array<RouteRecordRaw> = [
       //   },
       //   component: () => import('@/views/proxy/servers/list.vue'),
       // },
-      {
-        path: 'map-remote/new',
-        name: `${routeName}_map_remote`,
-        meta: {
-          title: 'Proxy Map Remote',
-          // permissions: ['proxy_map_remote'],
-          isRoot: true,
-        },
-        component: () => import('@/views/proxy/map-remote/index.vue'),
-      },
-      {
-        path: 'map-remote/:id',
-        name: `${routeName}_map_remote_dynamic`,
-        meta: {
-          title: 'Proxy Map Remote',
-          // permissions: ['proxy_map_remote'],
-          isRoot: true,
-          hidden: true,
-        },
-        component: () => import('@/views/proxy/map-remote/index.vue'),
-      },
+      // {
+      //   path: 'map-remote/new',
+      //   name: `${routeName}_map_remote`,
+      //   meta: {
+      //     title: 'Proxy Map Remote',
+      //     // permissions: ['proxy_map_remote'],
+      //     isRoot: true,
+      //   },
+      //   component: () => import('@/views/proxy/map-remote/index.vue'),
+      // },
+      // {
+      //   path: 'map-remote/:id',
+      //   name: `${routeName}_map_remote_dynamic`,
+      //   meta: {
+      //     title: 'Proxy Map Remote',
+      //     // permissions: ['proxy_map_remote'],
+      //     isRoot: true,
+      //     hidden: true,
+      //   },
+      //   component: () => import('@/views/proxy/map-remote/index.vue'),
+      // },
     ],
   },
 ];

@@ -1,11 +1,17 @@
 <template>
   <div>
     <div class="n-layout-page-header">
-      <n-card :bordered="false" title="Upload Har File" />
+      <n-card :bordered="false" title="New Har Test" header-style="padding-bottom:0;" />
     </div>
-    <n-card :bordered="false" class="mt-4 proCard">
-      <div class="BasicForm w-1/2 pt-[20px] my-0 mx-auto">
-        <FormKit type="form" submit-label="Save" @submit="submitHandler">
+    <n-card :bordered="false" class="mt-1">
+      <div class="w-full my-0">
+        <FormKit
+          type="form"
+          submit-label="Save"
+          @submit="submitHandler"
+          v-model="createTestParams"
+          :disabled="disbled"
+        >
           <FormKitSchema :schema="schemas" />
         </FormKit>
       </div>
@@ -15,44 +21,41 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
   import type { Ref } from 'vue';
+  import { useRoute, useRouter } from 'vue-router';
+  import { storeToRefs } from 'pinia';
   import { useMessage } from 'naive-ui';
-  import { useRouter, useRoute } from 'vue-router';
-  import { uploadHarTest } from '@/api/yolla-test/har-test';
-  import useFormKitSchema from './useFormKitSchema';
+  import useFormKitSchema from './testHarTestFormKitSchema';
+  import { useTestHarTestStore } from '@/store/modules/testHarTest';
   // Naive UI message Instance
   const message = useMessage();
-  // Vue Router, Route Instance
-  // const router = useRouter();
-  // const route = useRoute();
-  // Get route parameter
-  // const id: string | string[] = route.params.id;
-  // If id has value, modify set to true
-  // let modify: Ref<boolean> = ref(id ? true : false);
-  // Form Kit schemas setting
-  const { schemas } = useFormKitSchema();
-  // Create form
-  function createForm(values) {
-    let { report_folder, har_file, har_file_refresh } = values;
-    let form = new FormData();
-    form.append('report_folder', report_folder);
-    form.append('har_file', har_file[0].file);
-    if (har_file_refresh) {
-      form.append('har_file_refresh', har_file_refresh[0].file);
-    }
+  const route = useRoute();
+  const router = useRouter();
 
-    return form;
+  const { adjustForm, getHarTest } = useTestHarTestStore();
+  const store = useTestHarTestStore();
+  // reset store---------------------------------
+  store.$reset();
+  // set createTestParams------------------------
+  const { createTestParams } = storeToRefs(useTestHarTestStore());
+  // Get route id, to check disabled or not.-----
+  const { id } = route.params;
+  let disbled: Ref<boolean> = ref(false);
+  if (id && id != 'new') {
+    disbled.value = true;
+    getHarTest(id);
   }
-  // Call API
-  function uploadHarTestHandler(values) {
-    let form = createForm(values);
-    uploadHarTest(form).then(() => {
-      message.success('Upload Successfully');
+  //---------------------------------------------
+
+  // Form Kit schemas setting--------------------
+  const { schemas } = useFormKitSchema();
+  //---------------------------------------------
+  // submit handler -----------------------------
+  function submitHandler(values) {
+    adjustForm(values, () => {
+      router.push({ name: 'Test_list' });
     });
   }
-  // submit handler
-  function submitHandler(values) {
-    uploadHarTestHandler(values);
-  }
+  //---------------------------------------------
 </script>
 
 <style lang="less" scoped></style>

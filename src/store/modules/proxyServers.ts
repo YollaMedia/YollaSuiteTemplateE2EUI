@@ -7,6 +7,7 @@ import {
   updateServer as APIUpdateServer,
 } from '@/api/proxy/server';
 import { ICreateServerPayload, IStoreState } from '/#/proxyServers';
+import { useCodeMirrorStore } from '@/store/modules/codeMirror';
 
 export const useProxyServersStore = defineStore({
   id: 'proxy-servers',
@@ -24,8 +25,9 @@ export const useProxyServersStore = defineStore({
     },
     getServer(id: string, callback: Function) {
       APIGetServer(id).then((res) => {
+        const store = useCodeMirrorStore();
         // For code mirror component
-        this.serverDataDescription = res.description;
+        store.setValue(res.description);
         callback(res);
       });
     },
@@ -35,13 +37,14 @@ export const useProxyServersStore = defineStore({
       });
     },
     getServers(params) {
-      APIGetServers(params).then((res) => {
-        this.serversDataTable.page = res.current_page;
-        this.serversDataTable.pageCount = res.total;
-        this.serversDataTable.pageSize = res.per_page;
-        this.serversDataTable.list = res.data;
-        this.list = res.data;
-      });
+      return APIGetServers(params);
+      // APIGetServers(params).then((res) => {
+      //   this.serversDataTable.page = res.current_page;
+      //   this.serversDataTable.pageCount = res.total;
+      //   this.serversDataTable.pageSize = res.per_page;
+      //   this.serversDataTable.list = res.data;
+      //   this.list = res.data;
+      // });
     },
     deleteServer(id: string) {
       const params = {};

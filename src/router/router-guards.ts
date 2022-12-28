@@ -105,5 +105,6 @@ export function createRouterGuards(router: Router) {
 
   router.onError((error) => {
     console.log(error, '路由错误');
+    // location.reload();
   });
 }
