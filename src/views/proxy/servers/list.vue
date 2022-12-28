@@ -23,7 +23,7 @@
   // import { ref } from 'vue';
   import { BasicTable } from '@/components/Table';
   import useColumns from './useColumns';
-  const { columns, actionColumn, addServer, loadDataTable } = useColumns();
+  const { columns, actionColumn, addServer, loadDataTable, actionRef } = useColumns();
 </script>
 
 <style lang="less" scoped></style>

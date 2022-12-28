@@ -5,28 +5,31 @@
     </div>
     <n-card :bordered="false" class="mt-4 proCard">
       <div class="BasicForm w-1/2 pt-[20px] my-0 mx-auto">
-        <FormKit type="form" submit-label="Save" @submit="submitHandler">
+        <!-- <FormKit type="form" submit-label="Save" @submit="submitHandler">
           <FormKitSchema :schema="schemas" />
-        </FormKit>
+        </FormKit> -->
+        <YInputs
+          :useSubmit="true"
+          :schema="schema"
+          :modelValue="createServerPayload"
+          @submit="submitHandler"
+          submitLabel="Save"
+        />
       </div>
     </n-card>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { YInputs } from '@/components/YInputs';
+  import { ref, reactive } from 'vue';
   import type { Ref } from 'vue';
-  import { useMessage } from 'naive-ui';
-  import { FormKitSchema } from '@formkit/vue';
-  import { getNode } from '@formkit/core';
+  import { storeToRefs } from 'pinia';
   import { useRouter, useRoute } from 'vue-router';
-  import { ICreateServerPayload } from '/#/proxyServers';
   import { useProxyServersStore } from '@/store/modules/proxyServers';
-  import useFormKitSchema from './serversCreateFormKitSchema';
   // Create store
   const store = useProxyServersStore();
-  // Naive UI message Instance
-  const message = useMessage();
+  const { createServerPayload } = storeToRefs(store);
   // Vue Router, Route Instance
   const router = useRouter();
   const route = useRoute();
@@ -34,52 +37,67 @@
   const id: string = route.params.id;
   // If id has value, modify set to true
   let modify: Ref<boolean> = ref(id ? true : false);
-  // Form kit schema
-  const { schemas } = useFormKitSchema();
 
   // Use if to get old value
+  // Reset store
+  store.$reset();
   if (id) {
-    store.getServer(id, (res) => {
-      for (const key in res) {
-        schemas.forEach((i) => {
-          if (i.name === key) {
-            const node = getNode(key);
-            node?.input(res[key]);
-          }
-        });
-      }
-    });
+    store.getServer(id);
   }
-  // Create payload
-  function createPayload(values: ICreateServerPayload): ICreateServerPayload {
-    let { name, ip, proxy_port, api_port, description } = values;
-    let payload: ICreateServerPayload = {
-      name,
-      ip,
-      proxy_port,
-      api_port,
-      description,
-    };
-    return payload;
-  }
+  const schema = reactive([
+    {
+      type: 'text',
+      name: 'name',
+      label: 'Name',
+      placeholder: 'Enter a name',
+      validation: 'required',
+    },
+    {
+      type: 'text',
+      name: 'ip',
+      label: 'IP Address',
+      placeholder: 'Hostname with protocol',
+      validation: 'required',
+    },
+    {
+      type: 'number',
+      label: 'Proxy Port',
+      name: 'proxy_port',
+      value: 10080,
+      validation: 'required',
+    },
+    {
+      type: 'number',
+      label: 'API Port',
+      name: 'api_port',
+      value: 10088,
+      validation: 'required',
+    },
+    {
+      type: 'codemirror',
+      wrapperClass: 'max-w-full',
+      props: {
+        context: '$node.context',
+      },
+      name: 'description',
+      label: 'Description',
+      validation: 'required',
+    },
+  ]);
   // Create a new one
-  function createServerHandler(values) {
-    let payload = createPayload(values);
-    store.createServer(payload, () => {
-      // message.success('Successfully');
+  function createServerHandler() {
+    store.createServer(() => {
       router.push({ name: 'proxy_servers' });
     });
   }
   // Modify old setting
-  function updateServerHandler(values) {
-    let payload = createPayload(values);
-    store.updateServer(payload, id, () => {
-      // message.success('Successfully');
+  function updateServerHandler() {
+    store.updateServer(id, () => {
       router.push({ name: 'proxy_servers' });
     });
   }
-  function submitHandler(values) {
-    modify.value ? updateServerHandler(values) : createServerHandler(values);
+  function submitHandler() {
+    modify.value ? updateServerHandler() : createServerHandler();
   }
 </script>
 

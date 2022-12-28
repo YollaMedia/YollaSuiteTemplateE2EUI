@@ -9,7 +9,7 @@ export interface ICreateServerPayload {
 export interface IStoreState {
   serversDataTable: serversDataTable;
   list: [];
-  serverDataDescription: string;
+  createServerPayload: ICreateServerPayload;
 }
 
 interface serversDataTable {

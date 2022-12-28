@@ -2,7 +2,6 @@ import { reactive, h } from 'vue';
 import { EditOutlined, DatabaseOutlined } from '@vicons/antd';
 import { TableAction } from '@/components/Table';
 import { useTestStore } from '@/store/modules/test';
-import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 export default function () {
   const router = useRouter();
@@ -16,7 +15,6 @@ export default function () {
     return data;
   };
 
-  const { list, filter } = storeToRefs(store);
   const columns = [
     {
       title: 'ID',
@@ -79,5 +77,5 @@ export default function () {
   function handleEdit(record) {
     router.push({ name: 'edit_har_test', params: { id: record.id } });
   }
-  return { columns, actionColumn, loadDataTable, filter };
+  return { columns, actionColumn, loadDataTable };
 }

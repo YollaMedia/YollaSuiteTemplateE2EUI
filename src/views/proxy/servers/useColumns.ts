@@ -1,20 +1,21 @@
-import { reactive, h } from 'vue';
+import { reactive, h, ref } from 'vue';
 import { DeleteOutlined, EditOutlined } from '@vicons/antd';
 import { TableAction } from '@/components/Table';
 import { useProxyServersStore } from '@/store/modules/proxyServers';
-import { storeToRefs } from 'pinia';
-import { useDialog, useMessage } from 'naive-ui';
+// import { storeToRefs } from 'pinia';
+import { useDialog } from 'naive-ui';
 import { useRouter } from 'vue-router';
 export default function () {
+  // Create for refresh table
+  const actionRef = ref();
   const store = useProxyServersStore();
   // Get server list
-  const loadDataTable = async (params) => {
+  const loadDataTable = async () => {
     const payLoad = {};
     const data = await store.getServers(payLoad);
     return data;
   };
-  const { list } = storeToRefs(store);
-  const message = useMessage();
+  // const { list } = storeToRefs(store);
   const dialog = useDialog();
   const router = useRouter();
   const columns = [
@@ -60,8 +61,7 @@ export default function () {
       negativeText: 'Cancel',
       onPositiveClick: () => {
         store.deleteServer(record.id);
-        // actionRef.value.reload();
-        message.success('Successfully');
+        actionRef.value.reload();
       },
       onNegativeClick: () => {},
     });
@@ -102,5 +102,5 @@ export default function () {
   function addServer() {
     router.push('/proxy/create');
   }
-  return { columns, actionColumn, addServer, loadDataTable };
+  return { columns, actionColumn, addServer, loadDataTable, actionRef };
 }
