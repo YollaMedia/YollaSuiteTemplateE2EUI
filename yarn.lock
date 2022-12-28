@@ -1169,6 +1169,11 @@
   "resolved" "https://registry.npmmirror.com/@juggle/resize-observer/-/resize-observer-3.4.0.tgz"
   "version" "3.4.0"
 
+"@kurkle/color@^0.3.0":
+  "integrity" "sha512-hW0GwZj06z/ZFUW2Espl7toVDjghJN+EKqyXzPSV8NV89d5BYp5rRMBJoc+aUN0x5OXDMeRQHazejr2Xmqj2tw=="
+  "resolved" "https://registry.npmjs.org/@kurkle/color/-/color-0.3.1.tgz"
+  "version" "0.3.1"
+
 "@lezer/common@^1.0.0":
   "integrity" "sha512-8TR5++Q/F//tpDsLd5zkrvEX5xxeemafEaek7mUp7Y+bI8cKQXdSqhzTOBaOogETcMOVr0pT3BBPXp13477ciw=="
   "resolved" "https://registry.npmmirror.com/@lezer/common/-/common-1.0.1.tgz"
@@ -2195,6 +2200,13 @@
   "integrity" "sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA=="
   "resolved" "https://registry.npmjs.org/chardet/-/chardet-0.7.0.tgz"
   "version" "0.7.0"
+
+"chart.js@^4.0.1", "chart.js@^4.1.1":
+  "integrity" "sha512-P0pCosNXp+LR8zO/QTkZKT6Hb7p0DPFtypEeVOf+6x06hX13NIb75R0DXUA4Ksx/+48chDQKtCCmRCviQRTqsA=="
+  "resolved" "https://registry.npmjs.org/chart.js/-/chart.js-4.1.1.tgz"
+  "version" "4.1.1"
+  dependencies:
+    "@kurkle/color" "^0.3.0"
 
 "chokidar@^3.5.2", "chokidar@^3.5.3":
   "integrity" "sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw=="
@@ -6934,6 +6946,11 @@
   "version" "0.2.12"
   dependencies:
     "evtd" "^0.2.2"
+
+"vue-chartjs@^5.0.0":
+  "integrity" "sha512-O/VllsyZn1NzRJAYEbpgfbk/N+EB1nCHLsc/ullPNWuU2YRHxgF5SS8OwWc0K2IfVZNMw94Bp6HUqi2svDQzrQ=="
+  "resolved" "https://registry.npmjs.org/vue-chartjs/-/vue-chartjs-5.1.0.tgz"
+  "version" "5.1.0"
 
 "vue-codemirror@^6.1.1":
   "integrity" "sha512-rTAYo44owd282yVxKtJtnOi7ERAcXTeviwoPXjIc6K/IQYUsoDkzPvw/JDFtSP6T7Cz/2g3EHaEyeyaQCKoDMg=="

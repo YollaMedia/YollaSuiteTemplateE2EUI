@@ -1,6 +1,6 @@
 const formKitTailwind = require('@formkit/themes/tailwindcss');
 module.exports = {
-  important: true,
+  // important: true,
   // mode: 'jit',
   // darkMode: 'class',
   plugins: [createEnterPlugin(), formKitTailwind],
@@ -15,8 +15,8 @@ module.exports = {
         '-1': '-1',
       },
       colors: {
-        'primary': '#ff3c04',
-        'info': '#2080f0',
+        primary: '#ff3c04',
+        info: '#2080f0',
       },
       screens: {
         sm: '576px',

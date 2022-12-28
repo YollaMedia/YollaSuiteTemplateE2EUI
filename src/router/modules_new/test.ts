@@ -2,6 +2,8 @@ import { RouteRecordRaw } from 'vue-router';
 import { Layout } from '@/router/constant';
 import { CloudServerOutlined } from '@vicons/antd';
 import { renderIcon } from '@/utils/index';
+import TestReport from '@/views/test/test-report/TestReport.vue';
+
 const routeName = 'Test';
 const routes: Array<RouteRecordRaw> = [
   {
@@ -35,6 +37,15 @@ const routes: Array<RouteRecordRaw> = [
           affix: true,
         },
         component: () => import('@/views/test/har-test/index.vue'),
+      },
+      {
+        path: 'test-report/:id',
+        name: `${routeName}_test-report`,
+        meta: {
+          title: 'Test Reporting',
+          affix: true,
+        },
+        component: TestReport,
       },
       {
         path: 'har-test/:id',
